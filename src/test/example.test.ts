@@ -5,7 +5,7 @@ describe('test describe', () => {
 
     beforeEach(async () => {
         // runs before each test in this block
-    });
+    })
 
     it('test it', async () => {
         await browser.url(`http://google.com/`)
@@ -14,9 +14,9 @@ describe('test describe', () => {
 
     afterEach(async () => {
         // runs after each test in this block
-    });
+    })
 
     after(async () => {
         // runs once after the last test in this block
-    });
+    })
 })
