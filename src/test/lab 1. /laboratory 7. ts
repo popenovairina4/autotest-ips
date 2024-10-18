@@ -1,0 +1,6 @@
+const cakes = [10, 20, 30, 40, 50]
+
+cakes.forEach((oldcost) => {
+    const newcost = oldcost * 1.20
+    console.log(`oldcost: ${oldcost}, newcost: ${newcost}`)
+} )
