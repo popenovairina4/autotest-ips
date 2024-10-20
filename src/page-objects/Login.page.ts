@@ -26,7 +26,7 @@ class LoginPage extends PageObject {
     public async login(auth: { login: string, password: string }): Promise<void> {
         await this.setLogin(auth.login)
         await this.setPassword(auth.password)
-        await this.getSubmitButton()
+        await this.getSubmitButton().click()
     }
 
     private getLoginForm(): ChainablePromiseElement<WebdriverIO.Element> {
