@@ -4,11 +4,12 @@ import { auth } from "../../secrets/passwords"
 
 describe('Login form', () => {
     let loginPage: LoginPage
-
+    let mainPage: MainPage
 
     before(async () => {
         loginPage = new LoginPage(browser)
         await loginPage.open()
+        mainPage = new MainPage(browser)
     })
 
     it('login with valid data', async () => {
@@ -16,9 +17,10 @@ describe('Login form', () => {
 
         await browser.pause(3000)
 
-        const mainPage: MainPage = new MainPage(browser)
         const isDisplayedElement: boolean = await browser.$('/html/body/div[1]/div[1]/header/div').isDisplayed()
 
         expect(isDisplayedElement).toEqual(true)
     })
+
+
 })

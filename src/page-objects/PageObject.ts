@@ -1,6 +1,6 @@
 class PageObject {
     protected browser: WebdriverIO.Browser
-    private url: string = 'https://github.com'
+    private url: string = 'https://github.com/login'
 
     constructor(browser: WebdriverIO.Browser) {
         this.browser = browser

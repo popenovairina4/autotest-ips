@@ -6,10 +6,6 @@ describe('Login form', () => {
         await browser.url('https://github.com/login')
     })
 
-    afterEach(async () => {
-        await browser.reloadSession()
-    })
-
     it('login with valid data', async () => {
         await browser.$('//*[@id="login"]').waitForDisplayed({
             timeoutMsg: 'Login form was not displayed',
@@ -84,6 +80,7 @@ describe('Login form', () => {
 
         expect(isDisplayedElement).toEqual(true)
     })
+
     it('invalid login and password', async () => {
         await browser.$('//*[@id="login"]').waitForDisplayed({
             timeoutMsg: 'Login form was not displayed',
@@ -107,5 +104,9 @@ describe('Login form', () => {
         const isDisplayedElement: boolean = await browser.$('//*[@id="login"]/div[1] | //*[@id="login"]/div[4]').isDisplayed()
 
         expect(isDisplayedElement).toEqual(true)
+    })
+
+    afterEach(async () => {
+        await browser.reloadSession()
     })
 })
