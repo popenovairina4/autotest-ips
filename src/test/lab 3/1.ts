@@ -1,5 +1,5 @@
-import { LoginPage } from "../../page-objects/Login.page"
-import { MainPage } from "../../page-objects/Main.page"
+import { LoginPage } from "../../User/Login.page"
+import { MainPage } from "../../User/Main.page"
 import { auth } from "../../secrets/passwords"
 
 describe('Login form', () => {

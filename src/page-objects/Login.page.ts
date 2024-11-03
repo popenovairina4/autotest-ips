@@ -1,5 +1,6 @@
 import { ChainablePromiseElement } from 'webdriverio'
 import { PageObject } from './PageObject'
+import { UserModel } from '../Users/model/user.model'
 
 class LoginPage extends PageObject {
     public async setLogin(login: string): Promise<void> {
@@ -23,9 +24,9 @@ class LoginPage extends PageObject {
         await this.getSubmitButton().click()
     }
 
-    public async login(auth: { login: string, password: string }): Promise<void> {
-        await this.setLogin(auth.login)
-        await this.setPassword(auth.password)
+    public async login(user: UserModel): Promise<void> {
+        await this.setLogin(user.login)
+        await this.setPassword(user.password)
         await this.getSubmitButton().click()
     }
 
