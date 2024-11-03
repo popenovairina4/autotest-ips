@@ -4,13 +4,6 @@ import { SettingsObject } from './Settings.object'
 
 class SettingsPage extends SettingsObject {
 
-    public async setAvatar(avatar: string): Promise<void> {
-        await this.getAvatarField().waitForDisplayed({
-            timeoutMsg: 'Avatar input was not displayed',
-        })
-        await this.getAvatarField().setValue(avatar)
-    }
-
     public async setBio(bio: string): Promise<void> {
         await this.getBioField().waitForDisplayed({
             timeoutMsg: 'Bio input was not displayed',
@@ -39,6 +32,17 @@ class SettingsPage extends SettingsObject {
         await this.getPronounsField().selectByAttribute("value", pronouns)
     }
 
+    public async uploadFile(filePath: string): Promise<void> {
+        await this.getInputFile().waitForExist({
+            timeoutMsg: 'File input field was not existed',
+        })
+        await showHiddenFileInput(this.browser)
+        const file: string = await this.browser.uploadFile(filePath)
+        await this.getInputFile().setValue(file)
+        const submitButton = this.browser.$('//*[@id="avatar-crop-form"]/div[2]/button')
+        await submitButton.click()
+    }
+
     public async update(): Promise<void> {
         await this.getUpdateButton().waitForClickable({
             timeoutMsg: 'Update profile was not clickable',
@@ -58,6 +62,10 @@ class SettingsPage extends SettingsObject {
         return this.browser.$('//*[@id="user_profile_email"]')
     }
 
+    private getInputFile(): ChainablePromiseElement<WebdriverIO.Element> {
+        return this.browser.$('#avatar_upload')
+    }
+
     private getNameField(): ChainablePromiseElement<WebdriverIO.Element> {
         return this.browser.$('//*[@id="user_profile_name"]')
     }
@@ -70,14 +78,22 @@ class SettingsPage extends SettingsObject {
         return this.browser.$('//*[@id="edit_user_183081302"]/div/p[2]/button')
     }
 
-    public async getSettings(updateSettings: { name: string, email: string, bio: string, pronouns: string, avatar: string }): Promise<void> { //назвать глаголом
+    public async setSettings(updateSettings: { name: string, email: string, bio: string, pronouns: string, avatar: string }): Promise<void> { //назвать глаголом
         await this.setName(updateSettings.name)
         await this.setEmail(updateSettings.email)
         await this.setBio(updateSettings.bio)
         await this.setPronouns(updateSettings.pronouns)
-        await this.update
+        await this.update()
     }
 }
+
+async function showHiddenFileInput(browser: WebdriverIO.Browser): Promise<void> {
+    await browser.execute(() => {
+        const htmlElement = document.querySelector('#avatar_upload') as HTMLElement
+        htmlElement.style.cssText = 'display:block !important; opacity: 1; position: inherit;'
+    })
+}
+
 
 export {
     SettingsPage

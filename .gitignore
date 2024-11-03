@@ -3,5 +3,6 @@
 /credential.ts
 /allure-results
 src/secrets/settings.ts
+src/secrets/token.ts
 src/test/lab 4/lab 2.ts
 src/test/lab 3/1.ts

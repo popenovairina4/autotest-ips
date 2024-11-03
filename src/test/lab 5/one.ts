@@ -1,10 +1,10 @@
 import { userData } from "../../Users/data/user.data"
-import { MainIssues } from "../../Issues/Issues.main"
-import { MainNegativeIssues } from "../../Issues/Issues.negative.main"
-import { IssuesPage } from "../../Issues/IssuesPage"
+import { MainIssues } from "../../Issues/pagobject.ts/Issues.main"
+import { MainNegativeIssues } from "../../Issues/pagobject.ts/Issues.negative.main"
+import { IssuesPage } from "../../Issues/pagobject.ts/IssuesPage"
 import { createUserModel, UserModel } from "../../Users/model/user.model"
 import { LoginPage } from "../../Users/Login.page"
-import { createIssues } from "../../Issues/issues"
+import { createIssues } from "../../Issues/data/issues"
 
 describe('Profile form', () => {
     let issuesPage: IssuesPage
