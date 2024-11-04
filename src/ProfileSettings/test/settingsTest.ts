@@ -1,15 +1,21 @@
 import { SettingsPage } from "../page-object/Settings.page"
-import { logIn } from "../../Users/page-object/login"
 import { MainSettings } from "../page-object/Main.settings"
 import { updateSettings } from "../../secrets/settings"
+import { createUserModel, UserModel } from "../../Users/model/user.model"
+import { userData } from "../../Users/data/user.data"
+import { LoginPage } from "../../Users/page-object/Login.page"
 
 describe('Profile form', () => {
     let settingsPage: SettingsPage
     let mainSettings: MainSettings
+    let loginPage: LoginPage
 
     before(async () => {
         // await browser.pause(30000)
-        await logIn()
+        const user: UserModel = createUserModel(userData)
+        loginPage = new LoginPage(browser)
+        await loginPage.open()
+        await loginPage.login(user)
     })
 
     beforeEach(async () => {

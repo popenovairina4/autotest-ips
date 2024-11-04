@@ -1,4 +1,5 @@
-import { User } from "../model/usermodeltwo";
+import { UserModel } from "../model/user.model"
+
 
 type PatchUserRequest = {
     name: string,
@@ -6,7 +7,7 @@ type PatchUserRequest = {
 }
 
 class UserAPIDataProvider {
-    public static getUserData(user: User): PatchUserRequest {
+    public static getUserData(user: UserModel): PatchUserRequest {
         return {
             name: user.name,
             company: user.company,

@@ -19,14 +19,8 @@ class LoginPage extends PageObject {
 
     public async submit(): Promise<void> {
         await this.getSubmitButton().waitForDisplayed({
-            timeoutMsg: '',
+            timeoutMsg: 'Button was not displayed',
         })
-        await this.getSubmitButton().click()
-    }
-
-    public async login(user: UserModel): Promise<void> {
-        await this.setLogin(user.login)
-        await this.setPassword(user.password)
         await this.getSubmitButton().click()
     }
 
@@ -41,6 +35,12 @@ class LoginPage extends PageObject {
     }
     private getSubmitButton() {
         return this.browser.$('//*[@type="submit"]')
+    }
+
+    public async login(user: UserModel): Promise<void> {
+        await this.setLogin(user.login)
+        await this.setPassword(user.password)
+        await this.getSubmitButton().click()
     }
 }
 

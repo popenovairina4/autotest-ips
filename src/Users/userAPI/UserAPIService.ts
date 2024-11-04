@@ -1,7 +1,7 @@
 import { AxiosRequestConfig, AxiosResponse } from "axios"
-import { User } from "../model/usermodeltwo"
 import { PatchUserRequest, UserAPIDataProvider } from "./UserAPIDataProvider"
 import { UserAPIProvider } from "./UserAPIProvider"
+import { UserModel } from "../model/user.model"
 
 type GetUserResponse = {
     name: string,
@@ -16,7 +16,7 @@ class UserAPIService {
         return response.data
     }
 
-    public static async patchUser(user: User): Promise<GetUserResponse> {
+    public static async patchUser(user: UserModel): Promise<GetUserResponse> {
         const data: PatchUserRequest = UserAPIDataProvider.getUserData(user)
         const userAPIProvider: UserAPIProvider = new UserAPIProvider()
         const response: AxiosResponse<GetUserResponse> = await userAPIProvider.patchUser(data)

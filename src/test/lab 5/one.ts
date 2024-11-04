@@ -4,7 +4,7 @@ import { MainNegativeIssues } from "../../Issues/pagobject.ts/Issues.negative.ma
 import { IssuesPage } from "../../Issues/pagobject.ts/IssuesPage"
 import { createUserModel, UserModel } from "../../Users/model/user.model"
 import { LoginPage } from "../../Users/Login.page"
-import { createIssues } from "../../Issues/data/issues"
+import { issue } from "../../secrets/issues"
 
 describe('Profile form', () => {
     let issuesPage: IssuesPage
@@ -27,11 +27,11 @@ describe('Profile form', () => {
     it('Long title', async () => {
         const longtitle = 'jnbhg hjhhjnbhg hjhhjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hgjnbhg hjhhjnbhg hjhhjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hgjnbhg hjhhjnbhg hjhhjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hgjnbhg hjhhjnbhg hjhhjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hg'
 
-        await issuesPage.settings({ ...createIssues, title: longtitle })
+        await issuesPage.createIssue({ ...issue, title: longtitle })
 
         await browser.pause(3000)
 
-        const isDisplayedElement: boolean = await mainNegativeIssues.isDisplayedMainNegativeIssues()
+        const isDisplayedElement: boolean = await mainNegativeIssues.isDisplayedFailedIssues()
 
         expect(isDisplayedElement).toEqual(true)
     })

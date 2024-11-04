@@ -1,4 +1,4 @@
-function getRandomString(length: number) {
+function getRandomString(length: number = 10) {
     const le = 'abvcghjkiu' // проставить типы
     let result = ''
     const lelength = le.length
@@ -8,5 +8,6 @@ function getRandomString(length: number) {
     return result
 }
 
-let randomString1 = getRandomString(34)
-console.log(randomString1)
+export {
+    getRandomString
+}

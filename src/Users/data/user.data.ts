@@ -3,7 +3,6 @@ type UserData = {
     password: string,
     name: string,
     company: string
-
 }
 
 const userData: UserData = {

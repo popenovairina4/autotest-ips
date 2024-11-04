@@ -8,12 +8,20 @@ class MainIssues extends IssuesObject {
         super(browser)
     }
 
-    private getSectionMassage(): ChainablePromiseElement<WebdriverIO.Element> {
-        return this.browser.$('//*[@id="partial-discussion-header"]/div[3]/div[4]')
+    public isDisplayedFailedIssues(): Promise<boolean> {
+        return this.getFailedSectionMassage().isDisplayed()
     }
 
-    public isDisplayedMainSettings(): Promise<boolean> {
-        return this.getSectionMassage().isDisplayed()
+    public isDisplayedSuccessIssues(): Promise<boolean> {
+        return this.getSuccessSectionMassage().isDisplayed()
+    }
+
+    private getFailedSectionMassage(): ChainablePromiseElement<WebdriverIO.Element> {
+        return this.browser.$('//*[@id="new_issue"]/div/div/div[1]/div/div[1]/div/tab-container/div[2]')
+    }
+
+    private getSuccessSectionMassage(): ChainablePromiseElement<WebdriverIO.Element> {
+        return this.browser.$('//*[@id="partial-discussion-header"]/div[3]/div[4]')
     }
 }
 
