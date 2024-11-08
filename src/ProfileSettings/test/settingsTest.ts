@@ -4,6 +4,7 @@ import { updateSettings } from "../../secrets/settings"
 import { createUserModel, UserModel } from "../../Users/model/user.model"
 import { userData } from "../../Users/data/user.data"
 import { LoginPage } from "../../Users/page-object/Login.page"
+import { getRandomString } from "../../test/lab 1/laboratory 8"
 
 describe('Profile form', () => {
     let settingsPage: SettingsPage
@@ -28,8 +29,6 @@ describe('Profile form', () => {
         it('Correct Name', async () => {
             await settingsPage.setSettings({ ...updateSettings })
 
-            await browser.pause(3000)
-
             const isDisplayedElement: boolean = await mainSettings.isDisplayedMainSettings()
 
             expect(isDisplayedElement).toEqual(true)
@@ -38,32 +37,27 @@ describe('Profile form', () => {
         it('Correct Avatar', async () => {
             await settingsPage.uploadFile('/Users/irina/autotests/autotest-ips/src/foto/пион.jpg')
 
-            await browser.pause(3000)
-
             const isDisplayedElement: boolean = await mainSettings.isDisplayedCorrectAvatar()
 
             expect(isDisplayedElement).toEqual(true)
         })
 
-        it('Spaces in bio', async () => {
-            const spacesbio = '   '
+        it.only('bio 255', async () => {
+            const spacesbio = getRandomString(255) //использовать getRandomString, //255
+
             await settingsPage.setSettings({ ...updateSettings, bio: spacesbio })
 
-            await browser.pause(3000)
-
-            const isDisplayedElement: boolean = await mainSettings.isDisplayedMainSettings() //correctSavedSettingsPopup
+            const isDisplayedElement: boolean = await mainSettings.isDisplayedMainSettings()
 
             expect(isDisplayedElement).toEqual(true)
         })
     })
 
     describe('Negative cases', () => {
-        it('Incorrect Name', async () => {
-            const longname = 'hjnbhg hjhhjnbhg hjhhjnbhg hjhhjnbhg hjhhjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hg'
+        it('Long name', async () => {
+            const longname = getRandomString(256) // использовать getRandomString, конкретно 256
 
             await settingsPage.setSettings({ ...updateSettings, name: longname })
-
-            await browser.pause(3000)
 
             const isDisplayedElement: boolean = await mainSettings.isDisplayedError()
 
@@ -71,11 +65,9 @@ describe('Profile form', () => {
         })
 
         it('Long bio', async () => {
-            const longbio = 'nhjk hnjugnhjk hnjugnhjk hnjugnhjk hnjugnhjk hnjugnhjk hnjugnhjk hnjugnhjk hnjugnhjk hnjugnhjk hnjugnhjk hnjugnhjk hnjugnhjk hnjugnhjk hnjugnhjk hnjugnhjk hnjug   jk'
+            const longbio = getRandomString(300)
 
             await settingsPage.setSettings({ ...updateSettings, bio: longbio })
-
-            await browser.pause(3000)
 
             const isDisplayedElement: boolean = await mainSettings.isDisplayedMainSettings()
 
@@ -86,8 +78,6 @@ describe('Profile form', () => {
             const spacesname = '  '
 
             await settingsPage.setSettings({ ...updateSettings, name: spacesname })
-
-            await browser.pause(3000)
 
             const isDisplayedElement: boolean = await mainSettings.isDisplayedMainSettings()
 

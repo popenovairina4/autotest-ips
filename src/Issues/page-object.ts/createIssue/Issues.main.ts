@@ -1,6 +1,6 @@
-
 import { ChainablePromiseElement } from 'webdriverio'
 import { IssuesObject } from './Issues.Object'
+
 
 
 class MainIssues extends IssuesObject {
@@ -12,7 +12,7 @@ class MainIssues extends IssuesObject {
         return this.getFailedSectionMassage().isDisplayed()
     }
 
-    public isDisplayedSuccessIssues(): Promise<boolean> {
+    public isDisplayedSuccessIssues(): Promise<boolean> {// переименовать метод 
         return this.getSuccessSectionMassage().isDisplayed()
     }
 
