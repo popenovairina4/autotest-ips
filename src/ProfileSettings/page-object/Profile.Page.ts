@@ -8,13 +8,6 @@ class ProfileForm {
         this.browser = browser
     }
 
-    public async setUserProfileBio(userProfileBio: string): Promise<void> {
-        await this.getUserProfileBio().waitForDisplayed({
-            timeoutMsg: 'Full name was not displayed',
-        })
-        await this.getUserProfileBio().setValue(userProfileBio)
-    }
-
     public async setFullName(fullName: string): Promise<void> {
         await this.getFullName().waitForDisplayed({
             timeoutMsg: 'Full name was not displayed',
@@ -26,12 +19,19 @@ class ProfileForm {
         await this.browser.url(this.url)
     }
 
-    private getUserProfileBio(): ChainablePromiseElement<WebdriverIO.Element> {
-        return this.browser.$('//user-profile-bio')
+    public async setUserProfileBio(userProfileBio: string): Promise<void> {
+        await this.getUserProfileBio().waitForDisplayed({
+            timeoutMsg: 'User profile bio was not displayed',
+        })
+        await this.getUserProfileBio().setValue(userProfileBio)
     }
 
     private getFullName(): ChainablePromiseElement<WebdriverIO.Element> {
         return this.browser.$('//vcard-fullname')
+    }
+
+    private getUserProfileBio(): ChainablePromiseElement<WebdriverIO.Element> {
+        return this.browser.$('//user-profile-bio')
     }
 }
 

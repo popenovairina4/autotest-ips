@@ -43,7 +43,7 @@ describe('Profile form', () => {
         })
 
         it.only('bio 255', async () => {
-            const spacesbio = getRandomString(255) //использовать getRandomString, //255
+            const spacesbio = getRandomString(255)
 
             await settingsPage.setSettings({ ...updateSettings, bio: spacesbio })
 
@@ -55,7 +55,7 @@ describe('Profile form', () => {
 
     describe('Negative cases', () => {
         it('Long name', async () => {
-            const longname = getRandomString(256) // использовать getRandomString, конкретно 256
+            const longname = getRandomString(256)
 
             await settingsPage.setSettings({ ...updateSettings, name: longname })
 
@@ -84,5 +84,8 @@ describe('Profile form', () => {
             expect(isDisplayedElement).toEqual(true)
         })
     })
-
 })
+
+// В тестах использовать  getRandomString для проверки валидации, где можно;
+// Проверить создание Имени и Био на странице Profile, url аватрки проверить никак нельзя, т.к. он всегда одинаковый;
+// Убрать ожидание браузера 3 миинуты

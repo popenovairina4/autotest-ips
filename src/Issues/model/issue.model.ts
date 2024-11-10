@@ -1,4 +1,5 @@
 import { getRandomString } from "../../test/lab 1/laboratory 8"
+import { IssueData } from "../data/issues.data"
 
 type IssueModel = {
     title: string,
@@ -6,10 +7,11 @@ type IssueModel = {
     url: string
 }
 
-function createIssueModel(data?: Partial<IssueModel>): IssueModel { //изменить тип передаваемого значения
+function createIssueModel(data?: Partial<IssueData>): IssueModel { //изменить тип передаваемого значения
     return {
         title: data?.title ?? getRandomString(),
-        description: data?.description ?? getRandomString()
+        description: data?.description ?? getRandomString(),
+        url: data?.url ?? getRandomString()
     }
 }
 
