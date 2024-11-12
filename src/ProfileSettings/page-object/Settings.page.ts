@@ -3,7 +3,6 @@ import { SettingsObject } from './Settings.object'
 
 
 class SettingsPage extends SettingsObject {
-
     public async setBio(bio: string): Promise<void> {
         await this.getBioField().waitForDisplayed({
             timeoutMsg: 'Bio input was not displayed',
@@ -30,6 +29,14 @@ class SettingsPage extends SettingsObject {
             timeoutMsg: 'Pronouns:input was not displayed',
         })
         await this.getPronounsField().selectByAttribute("value", pronouns)
+    }
+
+    public async setSettings(updateSettings: { name: string, email: string, bio: string, pronouns: string, avatar: string }): Promise<void> { //назвать глаголом
+        await this.setName(updateSettings.name)
+        await this.setEmail(updateSettings.email)
+        await this.setBio(updateSettings.bio)
+        await this.setPronouns(updateSettings.pronouns)
+        await this.update()
     }
 
     public async uploadFile(filePath: string): Promise<void> {
@@ -77,14 +84,6 @@ class SettingsPage extends SettingsObject {
     private getUpdateButton(): ChainablePromiseElement<WebdriverIO.Element> {
         return this.browser.$('//*[@id="edit_user_183081302"]/div/p[2]/button')
     }
-
-    public async setSettings(updateSettings: { name: string, email: string, bio: string, pronouns: string, avatar: string }): Promise<void> { //назвать глаголом
-        await this.setName(updateSettings.name)
-        await this.setEmail(updateSettings.email)
-        await this.setBio(updateSettings.bio)
-        await this.setPronouns(updateSettings.pronouns)
-        await this.update()
-    }
 }
 
 async function showHiddenFileInput(browser: WebdriverIO.Browser): Promise<void> {
@@ -93,7 +92,6 @@ async function showHiddenFileInput(browser: WebdriverIO.Browser): Promise<void> 
         htmlElement.style.cssText = 'display:block !important; opacity: 1; position: inherit;'
     })
 }
-
 
 export {
     SettingsPage

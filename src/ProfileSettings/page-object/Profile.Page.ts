@@ -1,40 +1,24 @@
 import { ChainablePromiseElement } from 'webdriverio'
+import { ProfileObject } from './Profile.object'
 
-class ProfileForm {
-    protected browser: WebdriverIO.Browser
-    private url: string = 'https://github.com/settings/profile'
-
-    constructor(browser: WebdriverIO.Browser) {
-        this.browser = browser
+class ProfilePage extends ProfileObject {
+    public getBioText(): Promise<string> {
+        return this.getBioElement().getText()
     }
 
-    public async setFullName(fullName: string): Promise<void> {
-        await this.getFullName().waitForDisplayed({
-            timeoutMsg: 'Full name was not displayed',
-        })
-        await this.getFullName().setValue(fullName)
+    public getFullNameText(): Promise<string> {
+        return this.getFullNameElement().getText()
     }
 
-    public async open(): Promise<void> {
-        await this.browser.url(this.url)
+    private getFullNameElement(): ChainablePromiseElement<WebdriverIO.Element> {
+        return this.browser.$('//*[contains(@class, "vcard-fullname")]')
     }
 
-    public async setUserProfileBio(userProfileBio: string): Promise<void> {
-        await this.getUserProfileBio().waitForDisplayed({
-            timeoutMsg: 'User profile bio was not displayed',
-        })
-        await this.getUserProfileBio().setValue(userProfileBio)
-    }
-
-    private getFullName(): ChainablePromiseElement<WebdriverIO.Element> {
-        return this.browser.$('//vcard-fullname')
-    }
-
-    private getUserProfileBio(): ChainablePromiseElement<WebdriverIO.Element> {
-        return this.browser.$('//user-profile-bio')
+    private getBioElement(): ChainablePromiseElement<WebdriverIO.Element> {
+        return this.browser.$('//div[contains(@class, "js-profile-editable-area ")]//div[contains(@class, "user-profile-bio")]/div')
     }
 }
 
 export {
-    ProfileForm
+    ProfilePage
 }

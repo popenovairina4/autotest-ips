@@ -2,7 +2,6 @@ import { ChainablePromiseElement } from 'webdriverio'
 import { IssuesObject } from './Issues.Object'
 
 class IssuesPage extends IssuesObject {
-
     public async setDescription(discription: string): Promise<void> {
         await this.getDescriptionField().waitForDisplayed({
             timeoutMsg: 'Description input was not displayed',
@@ -10,11 +9,16 @@ class IssuesPage extends IssuesObject {
         await this.getDescriptionField().setValue(discription)
     }
 
-    public async update(): Promise<void> { // переименовать 
-        await this.getSubmitIssuesButton().waitForClickable({
-            timeoutMsg: 'Submit issues button was not clickable',
+    public async submitIssue(): Promise<void> { // этого метода раньше не было - от Саши задание разделить  await this.getSubmitIssuesButton().click() на два метода: ожидание кнопки и клик
+        await await this.getSubmitIssuesButton().waitForDisplayed({
+            timeoutMsg: 'Submit button is not displayed'
         })
-        await this.getSubmitIssuesButton().click()
+
+        await await this.getSubmitIssuesButton().waitForClickable({
+            timeoutMsg: 'Submit button is not clickable'
+        })
+
+        await await this.getSubmitIssuesButton().click()
     }
 
     public async setTitle(title: string): Promise<void> {
@@ -39,7 +43,7 @@ class IssuesPage extends IssuesObject {
     public async createIssue(issue: { title: string, description: string }): Promise<string> { //тип указать issueModel
         await this.setTitle(issue.title)
         await this.setDescription(issue.description)
-        await this.getSubmitIssuesButton().click()// создать метод, который будет проверять отображение и потом клик
+        await this.submitIssue()
         return this.browser.getUrl()
     }
 }

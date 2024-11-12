@@ -8,8 +8,8 @@ class SettingsObject {
 
     public async open(): Promise<void> {
         await this.browser.url(this.url)
-        await browser.$('//*[@id="public-profile-heading"]').waitForClickable({
-            timeoutMsg: 'Login button was not clickable',
+        await browser.$('//*[@id="public-profile-heading"]').waitForDisplayed({
+            timeoutMsg: 'Profile title is not visible',
         })
     }
 }

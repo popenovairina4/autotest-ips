@@ -1,4 +1,5 @@
 import { ChainablePromiseElement } from 'webdriverio'
+import { IssueModel } from '../../model/issue.model'
 
 class IssuesFormPage {                          //переименовать класс - экран созданной задачи (+)
     protected browser: WebdriverIO.Browser
@@ -14,11 +15,27 @@ class IssuesFormPage {                          //переименовать к�
         await this.getDescriptionField().selectByAttribute("value", discription)
     }
 
-    public async edit(): Promise<void> {
+    public async editTitleStart(): Promise<void> {
         await this.getEditButton().waitForClickable({
             timeoutMsg: 'Edit button was not clickable',
         })
         await this.getEditButton().click()
+    }
+
+    public async editIssueTitle(issue: IssueModel): Promise<void> {
+        await this.editTitleStart()
+
+        await this.setTitle(issue.title) // в метод передать модель, вместо 3 должна быть 1, в edit передать модель
+
+        await this.save()
+    }
+
+    public async editIssueDescription(issue: IssueModel): Promise<void> {
+        await this.editTitleStart()
+
+        await this.setDescription(issue.description)
+
+        await this.save()
     }
 
     public async save(): Promise<void> {
@@ -39,14 +56,6 @@ class IssuesFormPage {                          //переименовать к�
         return this.browser.$('//*[@id="partial-discussion-header"]/div[1]/div/h1/bdi').getText() //берем элемент и читаем из него текст - путь элемента / неважно какой заголовок
     }
 
-    public async editIssue(issue: { title: string, description: string }): Promise<string> {
-        await this.getEditButton().click()                                                      // паблик вверх(+)
-        await this.setTitle(issue.title)
-        await this.setDescription(issue.description)
-        await this.getSaveButton().click()
-        return this.browser.getUrl()
-    }
-
     private getDescriptionField(): ChainablePromiseElement<WebdriverIO.Element> {
         return this.browser.$('//*[@id="issue_body"]')
     }
@@ -56,7 +65,7 @@ class IssuesFormPage {                          //переименовать к�
     }
 
     private getSaveButton(): ChainablePromiseElement<WebdriverIO.Element> {
-        return this.browser.$('//form[starts-with(@id, "edit_header")]/div/button[1]')
+        return this.browser.$('//*[contains(@id, "edit_header")]/div/button[1]')
     }
 
     private getTitleField(): ChainablePromiseElement<WebdriverIO.Element> {
@@ -65,5 +74,5 @@ class IssuesFormPage {                          //переименовать к�
 }
 
 export {
-    IssuesFormPage as EditIssuesPage
+    IssuesFormPage
 }

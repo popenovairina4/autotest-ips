@@ -9,18 +9,32 @@ class MainIssues extends IssuesObject {
     }
 
     public isDisplayedFailedIssues(): Promise<boolean> {
-        return this.getFailedSectionMassage().isDisplayed()
+        return this.getFailedSectionMessage().isDisplayed()
     }
 
-    public isDisplayedSuccessIssues(): Promise<boolean> {// переименовать метод 
-        return this.getSuccessSectionMassage().isDisplayed()
+    public async isDisplayedTitleBlankError(): Promise<boolean> {
+        return (
+            await this.isDisplayedFailedIssues() &&
+            (await this.getFailedSectionMessage().getText()) === `There was an error creating your Issue: title can't be blank.`
+        )
     }
 
-    private getFailedSectionMassage(): ChainablePromiseElement<WebdriverIO.Element> {
+    public async isDisplayedTitleMaxSymbolsError(): Promise<boolean> {
+        return (
+            await this.isDisplayedFailedIssues() &&
+            (await this.getFailedSectionMessage().getText()).includes(`There was an error creating your Issue: title is too long (maximum is 256 characters).`)
+        )
+    }
+
+    public successfulTaskCreationIsDisplayed(): Promise<boolean> {// переименовать метод (был isDisplayedSuccessIssues())
+        return this.getSuccessSectionMessage().isDisplayed()
+    }
+
+    private getFailedSectionMessage(): ChainablePromiseElement<WebdriverIO.Element> {
         return this.browser.$('//*[@id="new_issue"]/div/div/div[1]/div/div[1]/div/tab-container/div[2]')
     }
 
-    private getSuccessSectionMassage(): ChainablePromiseElement<WebdriverIO.Element> {
+    private getSuccessSectionMessage(): ChainablePromiseElement<WebdriverIO.Element> {
         return this.browser.$('//*[@id="partial-discussion-header"]/div[3]/div[4]')
     }
 }

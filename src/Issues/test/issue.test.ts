@@ -1,20 +1,24 @@
+import { getRandomString } from "../../test/lab 1/laboratory 8"
 import { userData } from "../../Users/data/user.data"
 import { createUserModel, UserModel } from "../../Users/model/user.model"
 import { LoginPage } from "../../Users/page-object/Login.page"
 import { issueData } from "../data/issues.data"
 import { createIssueModel, IssueModel } from "../model/issue.model"
+import { createIssueUrlModel, IssueUrlModel } from "../model/issueUrl.model"
 import { MainIssues } from "../page-object.ts/createIssue/Issues.main"
 import { IssuesPage } from "../page-object.ts/createIssue/IssuesPage"
-import { EditIssuesPage } from "../page-object.ts/editIssue/IssueFormPage"
+import { IssuePage } from "../page-object.ts/editIssue/IssuePage"
+
 
 describe('Issue form', () => {
-    let issueWithoutDescription: IssueModel = createIssueModel()
+    let issueWithoutDescription: IssueModel = createIssueModel() // правка от Саши Платова
     issueWithoutDescription.description = ''
+    let newIssue: IssueModel = createIssueModel(issueData)
+    let newIssueUrl: IssueUrlModel = createIssueUrlModel()
     let issuesPage: IssuesPage
-    let editIssuesPage: EditIssuesPage
+    let issuePage: IssuePage
     let mainIssues: MainIssues
     let loginPage: LoginPage
-    let issueURL: string // определяем глобальную переменную: область видимости переменной определется скобками
 
     before(async () => {
         //await browser.pause(40000)
@@ -22,7 +26,7 @@ describe('Issue form', () => {
         issuesPage = new IssuesPage(browser)
         mainIssues = new MainIssues(browser)
         loginPage = new LoginPage(browser)
-        editIssuesPage = new EditIssuesPage(browser)
+        issuePage = new IssuePage(browser)
         await loginPage.open()
         await loginPage.login(user)
     })
@@ -33,38 +37,29 @@ describe('Issue form', () => {
 
     describe('Positive cases', () => {
         it('Создание задачи с названием и описанием', async () => {
-            issueURL = await issuesPage.createIssue({ ...issueData }) // присваиваешь в переменную результат выполнения функции
-            // указать тип issueURL
+            newIssueUrl.url = await issuesPage.createIssue(newIssue) // присваиваешь в переменную результат выполнения функции
 
-            const isDisplayedElement: boolean = await mainIssues.isDisplayedSuccessIssues()
+            const isDisplayedElement: boolean = await mainIssues.successfulTaskCreationIsDisplayed()
 
             expect(isDisplayedElement).toEqual(true)
         })
 
         it('Rename title', async () => {
-            const newtitle = 'green'// моделдь задачи тут
+            const issue = createIssueModel({ ...issueData, title: 'green' }) // моделдь задачи тут
 
-            await browser.url(issueURL) // переходим по урлу созданной задачи
+            await browser.url(newIssueUrl.url) // переходим по урлу созданной задачи
 
-            await editIssuesPage.edit()
+            await issuePage.editIssueTitle(issue)
 
-            await editIssuesPage.setTitle(newtitle) // в метод передать модель, вместо 3 долдна быть 1, в edit передать модель
+            const issueTitle = await issuePage.getTitleText()
 
-            await editIssuesPage.save()
-
-            //await browser.url(issueURL)
-
-            const issueTitle = await editIssuesPage.getTitleText()
-
-            expect(issueTitle).toEqual(newtitle)
+            expect(issueTitle).toEqual(issue.title)
         })
 
-        it.only('Only title', async () => { // переименовать
-            const onlytitle = 'hjhkjlk'// модель c пустым дескрипшеном
+        it('Create issue with title', async () => { // переименовать (было Only title)
+            await issuesPage.createIssue(issueWithoutDescription)  // модель c пустым дескрипшеном (было:  const onlytitle = 'hjhkjlk')
 
-            await issuesPage.createIssue(issueWithoutDescription)
-
-            const isDisplayedElement: boolean = await mainIssues.isDisplayedSuccessIssues()
+            const isDisplayedElement: boolean = await mainIssues.successfulTaskCreationIsDisplayed()
 
             expect(isDisplayedElement).toEqual(true)
         })
@@ -72,23 +67,23 @@ describe('Issue form', () => {
 
     describe('Negative cases', () => {
         it('Title with spaces', async () => {
-            const onlytitle = '  '
+            const title = '  '
 
-            await issuesPage.createIssue({ ...issueData, title: onlytitle })
+            await issuesPage.createIssue({ ...issueData, title })
 
-            const isDisplayedElement: boolean = await mainIssues.isDisplayedFailedIssues()// проверять не попапу, а по getTxt или название модели
+            const isDisplayedElement: boolean = await mainIssues.isDisplayedTitleBlankError() // проверять не попапу, а по getTxt или название модели
 
             expect(isDisplayedElement).toEqual(true)
         })
 
-        it('Long title', async () => {
-            const longtitle = 'jnbhg hjhhjnbhg hjhhjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hgjnbhg hjhhjnbhg hjhhjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hgjnbhg hjhhjnbhg hjhhjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hgjnbhg hjhhjnbhg hjhhjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hjnbhg hjh"hg'
+        it('Задача с заголовком свыше 1255 символов', async () => {
+            const longtitle = getRandomString(1256)
 
             await issuesPage.createIssue({ ...issueData, title: longtitle })
 
-            const isDisplayedElement: boolean = await mainIssues.isDisplayedFailedIssues()
+            const isError: boolean = await mainIssues.isDisplayedTitleMaxSymbolsError()
 
-            expect(isDisplayedElement).toEqual(true)
+            expect(isError).toEqual(true)
         })
     })
 })
