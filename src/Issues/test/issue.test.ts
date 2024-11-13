@@ -35,7 +35,7 @@ describe('Issue form', () => {
         await issuesPage.open()
     })
 
-    describe('Positive cases', () => {
+    describe.only('Positive cases', () => {
         it('Создание задачи с названием и описанием', async () => {
             newIssueUrl.url = await issuesPage.createIssue(newIssue) // присваиваешь в переменную результат выполнения функции
 
@@ -51,9 +51,43 @@ describe('Issue form', () => {
 
             await issuePage.editIssueTitle(issue)
 
-            const issueTitle = await issuePage.getTitleText()
+            const issueDescription = await issuePage.getTitleText()
 
-            expect(issueTitle).toEqual(issue.title)
+            expect(issueDescription).toEqual(issue.title)
+        })
+
+        it('Update description', async () => {
+            const issue = createIssueModel({ ...issueData, description: getRandomString(100) })
+
+            await browser.url(newIssueUrl.url)
+
+            await issuePage.editIssueDescription(issue)
+
+            const issueDescription = await issuePage.getDescriptionText()
+
+            expect(issueDescription).toEqual(issue.description)
+        })
+
+        it('Add comment', async () => {
+            await browser.url(newIssueUrl.url)
+
+            const comment = getRandomString(100)
+
+            await issuePage.addComment(comment)
+
+            const issueComment = await issuePage.getLastCommentText()
+
+            expect(issueComment).toEqual(comment)
+        })
+
+        it('Lock conversation', async () => {
+            await browser.url(newIssueUrl.url)
+
+            await issuePage.lockConversation()
+
+            const statusText = await issuePage.getConversationStatusText()
+
+            expect(statusText).toContain('locked and limited conversation to collaborators')
         })
 
         it('Create issue with title', async () => { // переименовать (было Only title)
