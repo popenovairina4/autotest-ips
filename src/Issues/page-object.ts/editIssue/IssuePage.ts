@@ -79,11 +79,11 @@ class IssuePage {
         return this.getDescriptionTextElement().getText()
     }
 
-    public async getConversationStatusText(): Promise<string> {
-        await this.getLockConversationStatusTextElement().waitForDisplayed({
-            timeoutMsg: 'Conversation status element was not displayed',
+    public async getLastEventStatusText(): Promise<string> {
+        await this.getLastEventTextElement().waitForDisplayed({
+            timeoutMsg: 'Last event status element was not displayed',
         })
-        return this.getLockConversationStatusTextElement().getText()
+        return this.getLastEventTextElement().getText()
     }
 
     public async getLastCommentText(): Promise<string> {
@@ -116,6 +116,26 @@ class IssuePage {
         await this.saveDescription()
     }
 
+    public async closeIssue(): Promise<void> {
+        await this.getCloseIssueButtonElement().waitForDisplayed({
+            timeoutMsg: 'Close issue button was not displayed',
+        })
+
+        await this.getCloseIssueButtonElement().waitForClickable({
+            timeoutMsg: 'Close issue button is not clickable',
+        })
+
+        await this.getCloseIssueButtonElement().click()
+
+        await this.getReopenIssueButtonElement().waitForDisplayed({
+            timeoutMsg: 'Reopen issue button was not displayed',
+        })
+
+        await this.getReopenIssueButtonElement().waitForClickable({
+            timeoutMsg: 'Reopen issue button is not clickable',
+        })
+    }
+
     public async addComment(comment: string): Promise<void> {
         await this.setComment(comment)
 
@@ -138,6 +158,31 @@ class IssuePage {
         })
 
         await this.getLockConversationPopupButtonElement().click()
+    }
+
+    public async deleteIssue(): Promise<void> {
+        await this.getDeleteIssueButtonElement().waitForDisplayed({
+            timeoutMsg: 'Delete issue button was not displayed',
+        })
+
+        await this.getDeleteIssueButtonElement().click()
+
+        await this.getDeleteIssuePopupButtonElement().waitForDisplayed({
+            timeoutMsg: 'Delete issue popup button was not displayed',
+        })
+
+        await this.getDeleteIssuePopupButtonElement().waitForClickable({
+            timeoutMsg: 'Delete issue popup button is not clickable',
+        })
+
+        await this.getDeleteIssuePopupButtonElement().click()
+    }
+
+    public async isDisplayedDeletedIssue(): Promise<boolean> {
+        const isDisplayed = await this.getIssueDeletedTextElement().isDisplayed()
+        const text = await this.getIssueDeletedTextElement().getText()
+
+        return isDisplayed && text === 'This issue has been deleted.'
     }
 
     private getEditButton(): ChainablePromiseElement<WebdriverIO.Element> {
@@ -196,8 +241,28 @@ class IssuePage {
         return this.browser.$('//*[@id="partial-discussion-sidebar"]/div[7]/details/details-dialog/form/div[3]/button')
     }
 
-    private getLockConversationStatusTextElement(): ChainablePromiseElement<WebdriverIO.Element> {
+    private getLastEventTextElement(): ChainablePromiseElement<WebdriverIO.Element> {
         return this.browser.$('(//*[contains(@id,"event")])[last()]/div[2]')
+    }
+
+    private getCloseIssueButtonElement(): ChainablePromiseElement<WebdriverIO.Element> {
+        return this.browser.$('//close-reason-selector/div/button')
+    }
+
+    private getReopenIssueButtonElement(): ChainablePromiseElement<WebdriverIO.Element> {
+        return this.browser.$('//reopen-reason-selector/div/button')
+    }
+
+    private getDeleteIssueButtonElement(): ChainablePromiseElement<WebdriverIO.Element> {
+        return this.browser.$('//*[@id="partial-discussion-sidebar"]/div[9]/details/summary')
+    }
+
+    private getDeleteIssuePopupButtonElement(): ChainablePromiseElement<WebdriverIO.Element> {
+        return this.browser.$('//details-dialog//*[contains(@id,"edit_issue")]/button')
+    }
+
+    private getIssueDeletedTextElement(): ChainablePromiseElement<WebdriverIO.Element> {
+        return this.browser.$('//*[@id="repo-content-pjax-container"]/div/div[1]/div/h2')
     }
 }
 

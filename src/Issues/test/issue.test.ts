@@ -35,8 +35,8 @@ describe('Issue form', () => {
         await issuesPage.open()
     })
 
-    describe.only('Positive cases', () => {
-        it('Создание задачи с названием и описанием', async () => {
+    describe('Positive cases', () => {
+        it('Create issue with title and description', async () => {
             newIssueUrl.url = await issuesPage.createIssue(newIssue) // присваиваешь в переменную результат выполнения функции
 
             const isDisplayedElement: boolean = await mainIssues.successfulTaskCreationIsDisplayed()
@@ -44,7 +44,15 @@ describe('Issue form', () => {
             expect(isDisplayedElement).toEqual(true)
         })
 
-        it('Rename title', async () => {
+        it('Create issue with title', async () => { // переименовать (было Only title)
+            await issuesPage.createIssue(issueWithoutDescription)  // модель c пустым дескрипшеном (было:  const onlytitle = 'hjhkjlk')
+
+            const isDisplayedElement: boolean = await mainIssues.successfulTaskCreationIsDisplayed()
+
+            expect(isDisplayedElement).toEqual(true)
+        })
+
+        it('Update title', async () => {
             const issue = createIssueModel({ ...issueData, title: 'green' }) // моделдь задачи тут
 
             await browser.url(newIssueUrl.url) // переходим по урлу созданной задачи
@@ -85,17 +93,19 @@ describe('Issue form', () => {
 
             await issuePage.lockConversation()
 
-            const statusText = await issuePage.getConversationStatusText()
+            const statusText = await issuePage.getLastEventStatusText()
 
             expect(statusText).toContain('locked and limited conversation to collaborators')
         })
 
-        it('Create issue with title', async () => { // переименовать (было Only title)
-            await issuesPage.createIssue(issueWithoutDescription)  // модель c пустым дескрипшеном (было:  const onlytitle = 'hjhkjlk')
+        it('Close issue', async () => {
+            await browser.url(newIssueUrl.url)
 
-            const isDisplayedElement: boolean = await mainIssues.successfulTaskCreationIsDisplayed()
+            await issuePage.closeIssue()
 
-            expect(isDisplayedElement).toEqual(true)
+            const statusText = await issuePage.getLastEventStatusText()
+
+            expect(statusText).toContain('closed this as completed')
         })
     })
 
@@ -118,6 +128,20 @@ describe('Issue form', () => {
             const isError: boolean = await mainIssues.isDisplayedTitleMaxSymbolsError()
 
             expect(isError).toEqual(true)
+        })
+    })
+
+    describe('Delete issue', () => {
+        it('Delete issue', async () => {
+            await browser.url(newIssueUrl.url)
+
+            await issuePage.deleteIssue()
+
+            await browser.url(newIssueUrl.url)
+
+            const isDeleted = await issuePage.isDisplayedDeletedIssue()
+
+            expect(isDeleted).toEqual(true)
         })
     })
 })
