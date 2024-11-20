@@ -1,8 +1,7 @@
 import { ChainablePromiseElement } from 'webdriverio'
-import { SettingsObject } from './Settings.object'
+import { PageObject } from '../../../common/page-object/PageObject';
 
-
-class MainSettings extends SettingsObject {
+class MainSettings extends PageObject {
     constructor(browser: WebdriverIO.Browser) {
         super(browser)
     }

@@ -1,13 +1,13 @@
 class PageObject {
     protected browser: WebdriverIO.Browser
-    private url: string = 'https://github.com/login'
+    protected url: string = 'https://github.com/login'
 
     constructor(browser: WebdriverIO.Browser) {
         this.browser = browser
     }
 
-    public async open(): Promise<void> {
-        await this.browser.url(this.url)
+    public async open(url?: string): Promise<void> {
+        await this.browser.url(url ?? this.url)
     }
 }
 

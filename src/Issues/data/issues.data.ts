@@ -1,12 +1,14 @@
 type IssueData = {
-    title: string,
     description: string,
-    url: string
+    title: string,
+    comment: string,
+    url: string,
 }
 
 const issueData: IssueData = {
-    title: 'Be one',
     description: 'Прекрасное пленяет навсегда...',
+    title: 'Be one',
+    comment: 'My comment',
     url: ''
 }
 

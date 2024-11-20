@@ -1,11 +1,15 @@
 import { ChainablePromiseElement } from 'webdriverio'
 import { IssueModel } from '../../model/issue.model'
+import { PageObject } from '../../../common/page-object/PageObject'
 
-class IssuePage {
+class IssuePage extends PageObject {
     protected browser: WebdriverIO.Browser
+    protected url: string
 
-    constructor(browser: WebdriverIO.Browser) {
+    constructor(browser: WebdriverIO.Browser, url: string) {
+        super(browser)
         this.browser = browser
+        this.url = url
     }
 
     public async editTitleStart(): Promise<void> {
@@ -161,15 +165,10 @@ class IssuePage {
     }
 
     public async deleteIssue(): Promise<void> {
-        await this.getDeleteIssueButtonElement().waitForDisplayed({
-            timeoutMsg: 'Delete issue button was not displayed',
+        await this.getDeleteIssueButtonElement().waitForClickable({ // проверить на кликбл
+            timeoutMsg: 'Delete issue button was not clickable',
         })
-
         await this.getDeleteIssueButtonElement().click()
-
-        await this.getDeleteIssuePopupButtonElement().waitForDisplayed({
-            timeoutMsg: 'Delete issue popup button was not displayed',
-        })
 
         await this.getDeleteIssuePopupButtonElement().waitForClickable({
             timeoutMsg: 'Delete issue popup button is not clickable',

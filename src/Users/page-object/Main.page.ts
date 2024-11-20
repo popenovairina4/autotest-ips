@@ -1,6 +1,6 @@
 
 import { ChainablePromiseElement } from 'webdriverio'
-import { PageObject } from './PageObject'
+import { PageObject } from '../../common/page-object/PageObject'
 
 class MainPage extends PageObject {
     constructor(browser: WebdriverIO.Browser) {

@@ -1,8 +1,14 @@
 import { ChainablePromiseElement } from 'webdriverio'
-import { SettingsObject } from './Settings.object'
+import { PageObject } from '../../../common/page-object/PageObject'
 
+class SettingsPage extends PageObject {
+    protected url: string = 'https://github.com/settings/profile' // сделала наследование от PageObgect, добавила урл страницы, на которую нужно перейти.
 
-class SettingsPage extends SettingsObject {
+    constructor(browser: WebdriverIO.Browser) {
+        super(browser)
+        this.browser = browser
+    }
+
     public async setBio(bio: string): Promise<void> {
         await this.getBioField().waitForDisplayed({
             timeoutMsg: 'Bio input was not displayed',

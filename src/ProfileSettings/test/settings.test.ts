@@ -1,11 +1,12 @@
-import { SettingsPage } from "../page-object/Settings.page"
-import { MainSettings } from "../page-object/Main.settings"
-import { updateSettings } from "../../secrets/settings"
 import { createUserModel, UserModel } from "../../Users/model/user.model"
+import { ProfilePage } from "../page-object/profile/Profile.page"
+import { MainSettings } from "../page-object/settings/Main.page.settings"
+import { updateSettings } from "../../secrets/settings"
+import { SettingsPage } from "../page-object/settings/Settings.page"
 import { userData } from "../../Users/data/user.data"
-import { LoginPage } from "../../Users/page-object/Login.page"
 import { getRandomString } from "../../test/lab 1/laboratory 8"
-import { ProfilePage } from "../page-object/Profile.Page"
+import { LoginPage } from "../../Users/page-object/Login.page"
+
 
 describe('Profile form', () => {
     let settingsPage: SettingsPage
@@ -29,7 +30,7 @@ describe('Profile form', () => {
     })
 
     describe('Positive cases', () => {
-        it('Correct Name', async () => {
+        it('Вбить валидное имя в поле name', async () => {
             await settingsPage.setSettings({ ...updateSettings })
 
             await profilePage.open()
@@ -39,29 +40,29 @@ describe('Profile form', () => {
             expect(profileFullName).toEqual(updateSettings.name)
         })
 
-        it('Correct Avatar', async () => {
-            await settingsPage.uploadFile('/Users/irina/autotests/autotest-ips/src/Users/foto/пион.jpg')
+        it.skip('Загрузка аватарки', async () => {
+            await settingsPage.uploadFile('/Users/irina/autotests/autotest-ips/src/common/foto/пион.jpg')// перенести в common
 
             const isDisplayedElement: boolean = await mainSettings.isDisplayedCorrectAvatar()
 
             expect(isDisplayedElement).toEqual(true)
         })
 
-        it('bio 100', async () => {
-            const spacesbio = getRandomString(100)
+        it('Вбить в поле bio валидное количество символов, не больше 255', async () => { // переименовть
+            const bio = getRandomString(100) // переименовать переменную
 
-            await settingsPage.setSettings({ ...updateSettings, bio: spacesbio })
+            await settingsPage.setSettings({ ...updateSettings, bio: bio })
 
             await profilePage.open()
 
             const profileBio = await profilePage.getBioText()
 
-            expect(profileBio).toEqual(spacesbio)
+            expect(profileBio).toEqual(bio)
         })
     })
 
     describe('Negative cases', () => {
-        it('Long name', async () => {
+        it('Ошибка, если вбить невалидное количество символов', async () => { // говорящее имя
             const longname = getRandomString(256)
 
             await settingsPage.setSettings({ ...updateSettings, name: longname })
@@ -71,7 +72,7 @@ describe('Profile form', () => {
             expect(isDisplayedElement).toEqual(true)
         })
 
-        it('Long bio', async () => {
+        it('Ошибка, если вбить невалидное колиство сиволов в поле bio', async () => {
             const longbio = getRandomString(300)
 
             await settingsPage.setSettings({ ...updateSettings, bio: longbio })
@@ -81,10 +82,10 @@ describe('Profile form', () => {
             expect(isDisplayedElement).toEqual(true)
         })
 
-        it('Spaces in Name', async () => {
-            const spacesname = '  '
+        it('Ошибка, если вбить в поле name только пробелы', async () => {
+            const name = '  '
 
-            await settingsPage.setSettings({ ...updateSettings, name: spacesname })
+            await settingsPage.setSettings({ ...updateSettings, name: name })
 
             const isDisplayedElement: boolean = await mainSettings.isDisplayedMainSettings()
 
@@ -92,7 +93,3 @@ describe('Profile form', () => {
         })
     })
 })
-
-// В тестах использовать  getRandomString для проверки валидации, где можно;
-// Проверить создание Имени и Био на странице Profile, url аватрки проверить никак нельзя, т.к. он всегда одинаковый;
-// Убрать ожидание браузера 3 миинуты

@@ -1,7 +1,13 @@
 import { ChainablePromiseElement } from 'webdriverio'
-import { IssuesObject } from './Issues.Object'
+import { IssueModel } from '../../model/issue.model'
+import { PageObject } from '../../../common/page-object/PageObject'
 
-class IssuesPage extends IssuesObject {
+class IssuesPage extends PageObject { // добавить урл https://github.com/popenovairina4/autotest-ips/issues
+    protected url: string = 'https://github.com/popenovairina4/autotest-ips/issues'
+
+    protected createIssueUrl: string = `${this.url}/new`
+
+
     public async setDescription(discription: string): Promise<void> {
         await this.getDescriptionField().waitForDisplayed({
             timeoutMsg: 'Description input was not displayed',
@@ -10,15 +16,10 @@ class IssuesPage extends IssuesObject {
     }
 
     public async submitIssue(): Promise<void> { // этого метода раньше не было - от Саши задание разделить  await this.getSubmitIssuesButton().click() на два метода: ожидание кнопки и клик
-        await await this.getSubmitIssuesButton().waitForDisplayed({
-            timeoutMsg: 'Submit button is not displayed'
-        })
-
-        await await this.getSubmitIssuesButton().waitForClickable({
+        await this.getSubmitIssuesButton().waitForClickable({
             timeoutMsg: 'Submit button is not clickable'
         })
-
-        await await this.getSubmitIssuesButton().click()
+        await this.getSubmitIssuesButton().click()
     }
 
     public async setTitle(title: string): Promise<void> {
@@ -40,11 +41,12 @@ class IssuesPage extends IssuesObject {
         return this.browser.$('//*[@id="issue_title"]')
     }
 
-    public async createIssue(issue: { title: string, description: string }): Promise<string> { //тип указать issueModel
+    public async createIssue(issue: IssueModel): Promise<void> { //тип указать issueModel
+        await this.open(this.createIssueUrl)
         await this.setTitle(issue.title)
         await this.setDescription(issue.description)
         await this.submitIssue()
-        return this.browser.getUrl()
+        issue.url = await this.browser.getUrl()
     }
 }
 

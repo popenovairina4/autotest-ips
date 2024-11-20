@@ -1,11 +1,11 @@
 import { ChainablePromiseElement } from 'webdriverio'
-import { IssuesObject } from './Issues.Object'
+import { PageObject } from '../../../common/page-object/PageObject'
 
 
 
-class MainIssues extends IssuesObject {
+class MainIssues extends PageObject { // переименовать наследуется от pageobject
     constructor(browser: WebdriverIO.Browser) {
-        super(browser)
+        super(browser) // вызывает конструктор расширяемого класса
     }
 
     public isDisplayedFailedIssues(): Promise<boolean> {

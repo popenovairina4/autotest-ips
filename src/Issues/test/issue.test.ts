@@ -4,19 +4,25 @@ import { createUserModel, UserModel } from "../../Users/model/user.model"
 import { LoginPage } from "../../Users/page-object/Login.page"
 import { issueData } from "../data/issues.data"
 import { createIssueModel, IssueModel } from "../model/issue.model"
-import { createIssueUrlModel, IssueUrlModel } from "../model/issueUrl.model"
-import { MainIssues } from "../page-object.ts/createIssue/Issues.main"
-import { IssuesPage } from "../page-object.ts/createIssue/IssuesPage"
-import { IssuePage } from "../page-object.ts/editIssue/IssuePage"
+import { MainIssues } from "../page-object/createIssue/Main.page.issues"
+import { IssuesPage } from "../page-object/createIssue/Issues.page"
+import { IssuePage } from "../page-object/editIssue/Issue.Page"
 
 
 describe('Issue form', () => {
-    let issueWithoutDescription: IssueModel = createIssueModel() // правка от Саши Платова
-    issueWithoutDescription.description = ''
-    let newIssue: IssueModel = createIssueModel(issueData)
-    let newIssueUrl: IssueUrlModel = createIssueUrlModel()
+    let issueWithoutDescription: IssueModel = createIssueModel({   // правка от Саши Платова
+        description: ''
+    })
+    let issueWithouLongTitle: IssueModel = createIssueModel({
+        title: getRandomString(1256)
+    })
+    let issueWithEmptyTitle: IssueModel = createIssueModel({
+        title: ' '
+    })
+    let issue: IssueModel = createIssueModel(issueData)
+    let issueForEdit: IssueModel = createIssueModel()
+    let issueForDelete: IssueModel = createIssueModel()
     let issuesPage: IssuesPage
-    let issuePage: IssuePage
     let mainIssues: MainIssues
     let loginPage: LoginPage
 
@@ -26,18 +32,13 @@ describe('Issue form', () => {
         issuesPage = new IssuesPage(browser)
         mainIssues = new MainIssues(browser)
         loginPage = new LoginPage(browser)
-        issuePage = new IssuePage(browser)
         await loginPage.open()
         await loginPage.login(user)
     })
 
-    beforeEach(async () => {
-        await issuesPage.open()
-    })
-
     describe('Positive cases', () => {
         it('Create issue with title and description', async () => {
-            newIssueUrl.url = await issuesPage.createIssue(newIssue) // присваиваешь в переменную результат выполнения функции
+            await issuesPage.createIssue(issue)
 
             const isDisplayedElement: boolean = await mainIssues.successfulTaskCreationIsDisplayed()
 
@@ -53,77 +54,76 @@ describe('Issue form', () => {
         })
 
         it('Update title', async () => {
-            const issue = createIssueModel({ ...issueData, title: 'green' }) // моделдь задачи тут
+            issueForEdit.title = getRandomString(20) // создвть в бефорб при создании заполнить урл модели
 
-            await browser.url(newIssueUrl.url) // переходим по урлу созданной задачи
+            const issuePage: IssuePage = new IssuePage(browser, issue.url)
+            await issuePage.open()
 
-            await issuePage.editIssueTitle(issue)
+            await issuePage.editIssueTitle(issueForEdit)
 
             const issueDescription = await issuePage.getTitleText()
 
-            expect(issueDescription).toEqual(issue.title)
+            expect(issueDescription).toEqual(issueForEdit.title)
         })
 
         it('Update description', async () => {
-            const issue = createIssueModel({ ...issueData, description: getRandomString(100) })
+            issueForEdit.description = getRandomString(100)
 
-            await browser.url(newIssueUrl.url)
+            const issuePage: IssuePage = new IssuePage(browser, issue.url)
+            await issuePage.open()
 
-            await issuePage.editIssueDescription(issue)
+            await issuePage.editIssueDescription(issueForEdit)
 
             const issueDescription = await issuePage.getDescriptionText()
 
-            expect(issueDescription).toEqual(issue.description)
+            expect(issueDescription).toEqual(issueForEdit.description)
         })
 
         it('Add comment', async () => {
-            await browser.url(newIssueUrl.url)
+            const issuePage: IssuePage = new IssuePage(browser, issue.url)
+            await issuePage.open()
 
-            const comment = getRandomString(100)
-
-            await issuePage.addComment(comment)
+            await issuePage.addComment(issue.comment)
 
             const issueComment = await issuePage.getLastCommentText()
 
-            expect(issueComment).toEqual(comment)
+            expect(issueComment).toEqual(issue.comment)
         })
 
         it('Lock conversation', async () => {
-            await browser.url(newIssueUrl.url)
+            const issuePage: IssuePage = new IssuePage(browser, issue.url)
+            await issuePage.open()
 
             await issuePage.lockConversation()
 
-            const statusText = await issuePage.getLastEventStatusText()
+            const statusText: string = await issuePage.getLastEventStatusText()
 
             expect(statusText).toContain('locked and limited conversation to collaborators')
         })
 
         it('Close issue', async () => {
-            await browser.url(newIssueUrl.url)
+            const issuePage: IssuePage = new IssuePage(browser, issue.url)
+            await issuePage.open()
 
             await issuePage.closeIssue()
 
-            const statusText = await issuePage.getLastEventStatusText()
+            const statusText: string = await issuePage.getLastEventStatusText()
 
-            expect(statusText).toContain('closed this as completed')
+            expect(statusText).toContain('closed this as completed') // икл
         })
     })
 
     describe('Negative cases', () => {
         it('Title with spaces', async () => {
-            const title = '  '
+            await issuesPage.createIssue(issueWithEmptyTitle)
 
-            await issuesPage.createIssue({ ...issueData, title })
-
-            const isDisplayedElement: boolean = await mainIssues.isDisplayedTitleBlankError() // проверять не попапу, а по getTxt или название модели
+            const isDisplayedElement: boolean = await mainIssues.isDisplayedTitleBlankError() // проверять не попапу, а по getTxt или название модели - см. isDisplayedTitleBlankError!!!!!!!!!!!!!!!
 
             expect(isDisplayedElement).toEqual(true)
         })
 
         it('Задача с заголовком свыше 1255 символов', async () => {
-            const longtitle = getRandomString(1256)
-
-            await issuesPage.createIssue({ ...issueData, title: longtitle })
+            await issuesPage.createIssue(issueWithouLongTitle)
 
             const isError: boolean = await mainIssues.isDisplayedTitleMaxSymbolsError()
 
@@ -133,11 +133,16 @@ describe('Issue form', () => {
 
     describe('Delete issue', () => {
         it('Delete issue', async () => {
-            await browser.url(newIssueUrl.url)
+            await issuesPage.createIssue(issueForDelete)
+
+            await browser.url(issueForDelete.url) // отдельная модель для удаления
+
+            const issuePage: IssuePage = new IssuePage(browser, issueForDelete.url)
+            await issuePage.open()
 
             await issuePage.deleteIssue()
 
-            await browser.url(newIssueUrl.url)
+            await browser.url(issueForDelete.url)
 
             const isDeleted = await issuePage.isDisplayedDeletedIssue()
 

@@ -27,5 +27,4 @@ class UserAPIService {
 export {
     GetUserResponse,
     UserAPIService,
-
 }

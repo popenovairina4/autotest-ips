@@ -1,4 +1,4 @@
-import { UserData, userData } from "../../Users/data/user.data"
+import { userData } from "../../Users/data/user.data"
 import { createUserModel, UserModel } from "../../Users/model/user.model"
 import { GetUserResponse, UserAPIService } from "../../Users/userAPI/UserAPIService"
 
