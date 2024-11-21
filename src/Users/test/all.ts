@@ -44,7 +44,7 @@ describe('Login form', () => {
         await browser.$('//*[@id="password"]').waitForDisplayed({
             timeoutMsg: 'Password input was not displayed',
         })
-        await browser.$('//*[@id="password"]').setValue(`KirianFrakiiscii`)
+        await browser.$('//*[@id="password"]').setValue(auth.password)
 
         await browser.$('//*[@type="submit"]').waitForClickable({
             timeoutMsg: 'Login button was not clickable',
