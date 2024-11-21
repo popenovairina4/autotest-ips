@@ -1,3 +1,5 @@
+import { auth } from "../../secrets/passwords"
+
 type UserData = {
     email: string,
     password: string,
@@ -6,8 +8,8 @@ type UserData = {
 }
 
 const userData: UserData = {
-    email: 'popenovairina4@gmail.com',
-    password: 'KirianFrakiiscii',
+    email: auth.login,
+    password: auth.password,
     name: 'Fine',
     company: 'Lena'
 }

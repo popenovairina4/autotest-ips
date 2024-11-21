@@ -77,6 +77,7 @@ describe('Issue API test', () => {
             await issuePage.open()
 
             let isLabelInIssue = await issuePage.isDisplayedIssueLabel(createLabelResponse.name)
+
             expect(isLabelInIssue).toEqual(true)
 
             await issuePage.deleteIssueLabel(createLabelResponse.id)
