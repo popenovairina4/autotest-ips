@@ -1,23 +1,21 @@
 import { AxiosRequestConfig, AxiosResponse } from "axios"
-import { GitAPIProvider } from "../../../common/Api/GitAPIProvider"
+import { GitAPIProvider } from "../../../../common/Api/GitAPIProvider"
 import { PostLabelRequest } from "./labelAPIDataProvider"
 
-
 class LabelAPIProvider extends GitAPIProvider {
-    public postCreateLabel<T>(): Promise<AxiosResponse<T>> {   //(data: PostLabelRequest)
+    public createLabel<T>(owner: string, repo: string, data: PostLabelRequest): Promise<AxiosResponse<T>> {
         const config: AxiosRequestConfig = this.configurateRequest(
-            '/repos/${owner}/${repo}/labels',
+            `/repos/${owner}/${repo}/labels`,
             'POST',
-            //JSON.stringify(data),
+            JSON.stringify(data),
         )
         return this.sendRequest(config)
     }
 
-    public deleteLabel<T>(data: PostLabelRequest): Promise<AxiosResponse<T>> {
+    public deleteLabel<T>(owner: string, repo: string, data: PostLabelRequest): Promise<AxiosResponse<T>> {
         const config: AxiosRequestConfig = this.configurateRequest(
-            '/repos/${owner}/${repo}/labels/${name}',
+            `/repos/${owner}/${repo}/labels/${data.name}`,
             'DELETE',
-            JSON.stringify(data),
         )
         return this.sendRequest(config)
     }

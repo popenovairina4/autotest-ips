@@ -1,7 +1,7 @@
 import { getRandomString } from "../../test/lab 1/laboratory 8"
 import { CreateIssueRequest } from "../API/Createissue/IssueAPIData"
 import { IssueAPIProvider } from "../API/Createissue/IssueAPIProvider"
-import { Issue } from "../API/Createissue/issueAPIServise"
+import { Issue } from "../API/Createissue/issueAPIService"
 import { AxiosResponse } from "axios"
 
 const OWNER = 'popenovairina4'

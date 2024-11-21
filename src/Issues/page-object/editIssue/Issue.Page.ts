@@ -177,11 +177,66 @@ class IssuePage extends PageObject {
         await this.getDeleteIssuePopupButtonElement().click()
     }
 
+    public async addIssueLabel(labelNumber: number): Promise<void> {
+        await this.getLabelButtonlement().waitForClickable({
+            timeoutMsg: 'Label button was not clickable',
+        })
+        await this.getLabelButtonlement().click()
+
+        await this.getLabelMenuItemElement(labelNumber).waitForClickable({
+            timeoutMsg: 'Label menu item element is not clickable',
+        })
+
+        await this.getLabelMenuItemElement(labelNumber).click()
+
+        await this.getLabelButtonlement().click()
+    }
+
+    public async deleteIssueLabel(labelNumber: number): Promise<void> {
+        await this.getLabelButtonlement().waitForClickable({
+            timeoutMsg: 'Label button was not clickable',
+        })
+        await this.getLabelButtonlement().click()
+
+        await this.getCheckedLabelMenuItemElement(labelNumber).waitForClickable({
+            timeoutMsg: 'Label menu item element is not clickable',
+        })
+
+        await this.getCheckedLabelMenuItemElement(labelNumber).click()
+
+        await this.getLabelButtonlement().click()
+    }
+
     public async isDisplayedDeletedIssue(): Promise<boolean> {
         const isDisplayed = await this.getIssueDeletedTextElement().isDisplayed()
         const text = await this.getIssueDeletedTextElement().getText()
 
         return isDisplayed && text === 'This issue has been deleted.'
+    }
+
+    public async isDisplayedIssueNoneLabels(): Promise<boolean> {
+        await this.geIssueLabelNoneElement().waitForDisplayed({
+            timeoutMsg: 'Issue none labels element was not displayed',
+        })
+
+        const isNoneLabels = await this.browser.waitUntil(async () => {
+            return (await this.geIssueLabelNoneElement().getText()) === 'None yet'
+        }, {
+            timeout: 5000,
+            timeoutMsg: 'expected text "None yet" to be different after 5s'
+        })
+
+        return isNoneLabels === true
+    }
+
+    public async isDisplayedIssueLabel(labelName: string): Promise<boolean> {
+        await this.geIssueLabelElement(labelName).waitForDisplayed({
+            timeoutMsg: 'Issue label element was not displayed',
+        })
+
+        const isDisplayed = await this.geIssueLabelElement(labelName).isDisplayed()
+
+        return isDisplayed
     }
 
     private getEditButton(): ChainablePromiseElement<WebdriverIO.Element> {
@@ -262,6 +317,26 @@ class IssuePage extends PageObject {
 
     private getIssueDeletedTextElement(): ChainablePromiseElement<WebdriverIO.Element> {
         return this.browser.$('//*[@id="repo-content-pjax-container"]/div/div[1]/div/h2')
+    }
+
+    private getLabelButtonlement(): ChainablePromiseElement<WebdriverIO.Element> {
+        return this.browser.$('//*[@id="labels-select-menu"]/summary')
+    }
+
+    private getLabelMenuItemElement(labelNumber: number): ChainablePromiseElement<WebdriverIO.Element> {
+        return this.browser.$(`//input[@value=${labelNumber}]/ancestor::label`)
+    }
+
+    private getCheckedLabelMenuItemElement(labelNumber: number): ChainablePromiseElement<WebdriverIO.Element> {
+        return this.browser.$(`//input[@value=${labelNumber}]/ancestor::label[@aria-checked="true"]`)
+    }
+
+    private geIssueLabelElement(labelName: string): ChainablePromiseElement<WebdriverIO.Element> {
+        return this.browser.$(`//div[contains(@class, "js-issue-labels")]/a[@data-name="${labelName}"]`)
+    }
+
+    private geIssueLabelNoneElement(): ChainablePromiseElement<WebdriverIO.Element> {
+        return this.browser.$(`//*[@id="partial-discussion-sidebar"]/div[2]/div`)
     }
 }
 

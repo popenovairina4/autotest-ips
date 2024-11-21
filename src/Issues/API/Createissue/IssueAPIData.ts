@@ -1,7 +1,8 @@
 type CreateIssueRequest = {
     owner: string,
     repo: string,
-    title: string
+    title: string,
+    labels?: string[],
 }
 
 export {

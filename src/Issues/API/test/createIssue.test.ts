@@ -1,9 +1,8 @@
 import { AxiosResponse } from "axios"
 import { getRandomString } from "../../../test/lab 1/laboratory 8"
 import { IssueAPIProvider } from "../Createissue/IssueAPIProvider"
-import { Issue } from "../Createissue/issueAPIServise"
+import { Issue } from "../Createissue/issueAPIService"
 import { CreateIssueRequest } from "../Createissue/IssueAPIData"
-
 
 const OWNER = 'popenovairina4'
 const REPO = 'autotest-ips'

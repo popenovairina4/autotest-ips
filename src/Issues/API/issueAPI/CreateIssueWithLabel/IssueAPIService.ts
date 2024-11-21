@@ -1,7 +1,7 @@
 import { AxiosResponse } from "axios"
 import { IssueAPIProvider } from "./IssueAPIProvider"
 import { IssueAPIDataProvider, PostIssueRequest } from "./IssueAPIDataProvider"
-import { LabelModel } from "../../model/label.issue.model"
+import { LabelModel } from "../../../model/label.issue.model"
 
 type PostCreateIssueResponse = {
     node_id: string,

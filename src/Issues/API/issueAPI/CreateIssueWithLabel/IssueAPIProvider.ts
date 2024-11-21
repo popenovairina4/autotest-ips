@@ -1,4 +1,4 @@
-import { GitAPIProvider } from "../../../common/Api/GitAPIProvider"
+import { GitAPIProvider } from "../../../../common/Api/GitAPIProvider"
 import { AxiosRequestConfig, AxiosResponse } from "axios"
 import { PostIssueRequest } from "./IssueAPIDataProvider"
 

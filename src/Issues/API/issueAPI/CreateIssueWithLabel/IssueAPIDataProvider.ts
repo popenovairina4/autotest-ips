@@ -1,4 +1,4 @@
-import { LabelModel } from "../../model/label.issue.model"
+import { LabelModel } from "../../../model/label.issue.model"
 
 type PostIssueRequest = {
     name: string,

@@ -1,7 +1,7 @@
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { GitAPIProvider } from "../../../common/Api/GitAPIProvider";
 import { CreateIssueRequest } from "./IssueAPIData";
-import { Issue } from "./issueAPIServise";
+import { Issue } from "./issueAPIService";
 
 class IssueAPIProvider extends GitAPIProvider {
     public create(owner: string, repo: string, data: CreateIssueRequest): Promise<AxiosResponse<Issue>> {
@@ -9,6 +9,14 @@ class IssueAPIProvider extends GitAPIProvider {
             `/repos/${owner}/${repo}/issues`,
             'POST',
             JSON.stringify(data)
+        )
+        return this.sendRequest(config)
+    }
+
+    public getIssue(owner: string, repo: string, issueNumber: number): Promise<AxiosResponse<Issue>> {
+        const config: AxiosRequestConfig = this.configurateRequest(
+            `/repos/${owner}/${repo}/issues/${issueNumber}`,
+            'GET',
         )
         return this.sendRequest(config)
     }

@@ -2,7 +2,7 @@ import { getRandomString } from "../../test/lab 1/laboratory 8"
 import { LabelData } from "../data/label.issue.data"
 
 type LabelModel = {
-    name: string
+    name: string,
 }
 
 function createLabelModel(data?: Partial<LabelData>): LabelModel {
@@ -12,6 +12,6 @@ function createLabelModel(data?: Partial<LabelData>): LabelModel {
 }
 
 export {
-    createLabelModel,
-    LabelModel
+    LabelModel,
+    createLabelModel
 }
