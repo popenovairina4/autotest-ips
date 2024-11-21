@@ -93,5 +93,6 @@ describe('Issue API test', () => {
 
     after(async () => {
         await LabelCreateAPIService.deleteLabel(OWNER, REPO, issueAddedLabelModel)
+        await LabelCreateAPIService.deleteLabel(OWNER, REPO, issueLabelModel)
     })
 })
