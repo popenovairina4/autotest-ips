@@ -20,6 +20,7 @@ describe('picture test', () => {
     let issueAPIProvider: IssueAPIProvider
     let issueForEdit: IssueModel = createIssueModel()
     let loginPage: LoginPage
+    let issuePage: IssuePage
 
     before(async () => {
         issueAPIProvider = new IssueAPIProvider({
@@ -36,6 +37,8 @@ describe('picture test', () => {
 
         issueUrl = createIssueResponse.data.html_url
 
+        issuePage = new IssuePage(browser, issueUrl)
+
         const user: UserModel = createUserModel(userData)
         loginPage = new LoginPage(browser)
         await loginPage.open()
@@ -46,7 +49,6 @@ describe('picture test', () => {
     describe('upload picture', () => {
         images.forEach(image => {
             it(`Скриншотные тесты для вставки картинки в задачу: ${image.name}`, async () => {
-                const issuePage: IssuePage = new IssuePage(browser, issueUrl)
                 await issuePage.open()
 
                 issueForEdit.description = `![${image.name}](${image.url})`
@@ -58,5 +60,9 @@ describe('picture test', () => {
                 expect(result).toBeLessThan(0.5)
             })
         })
+    })
+
+    after(async () => {
+        await issuePage.deleteIssue()
     })
 })
