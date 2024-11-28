@@ -1,4 +1,4 @@
-import { getRandomString } from "../../test/lab 1/laboratory 8"
+import { getRandomString } from "../../common/getRandomString"
 import { IssueData } from "../data/issues.data"
 
 type IssueModel = {

@@ -1,4 +1,3 @@
-import { expect } from '@wdio/globals'
 import { AxiosResponse } from "axios"
 import { CreateTeamRequest } from "../../TeamAPIData"
 import { TeamAPIProvider } from "../TeamAPIProvider"

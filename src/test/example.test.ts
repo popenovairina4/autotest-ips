@@ -1,5 +1,3 @@
-import { browser } from '@wdio/globals'
-
 
 describe('test describe', () => {
     before(async () => {

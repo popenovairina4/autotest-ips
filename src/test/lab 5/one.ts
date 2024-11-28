@@ -1,11 +1,8 @@
-import { browser, expect } from '@wdio/globals'
 import { userData } from "../../Users/data/user.data"
-import { MainIssues } from "../../Issues/page-object/Issues.main"
-import { MainNegativeIssues } from "../../Issues/page-object/Issues.negative.main"
 import { IssuesPage } from "../../Issues/page-object/createIssue/Issues.page"
 import { createUserModel, UserModel } from "../../Users/model/user.model"
-import { LoginPage } from "../../Users/Login.page"
-import { issue } from "../../secrets/issues"
+import { MainIssues } from "../../Issues/page-object/createIssue/Main.page.issues"
+import { LoginPage } from "../../Users/page-object/Login.page"
 
 describe('Profile form', () => {
     let issuesPage: IssuesPage

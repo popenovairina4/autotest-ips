@@ -1,11 +1,10 @@
-import { browser, expect } from '@wdio/globals'
 import { createUserModel, UserModel } from "../../Users/model/user.model"
 import { ProfilePage } from "../page-object/profile/Profile.page"
 import { MainSettings } from "../page-object/settings/Main.page.settings"
 import { updateSettings } from "../../secrets/settings"
 import { SettingsPage } from "../page-object/settings/Settings.page"
 import { userData } from "../../Users/data/user.data"
-import { getRandomString } from "../../test/lab 1/laboratory 8"
+import { getRandomString } from "../../common/getRandomString"
 import { LoginPage } from "../../Users/page-object/Login.page"
 
 

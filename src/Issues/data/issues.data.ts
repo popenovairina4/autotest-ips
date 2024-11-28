@@ -5,14 +5,14 @@ type IssueData = {
     url: string,
 }
 
-const images: Array<{ path: string, name: string }> = [{
-    path: '/Users/irina/autotests/autotest-ips/src/common/foto/пион.jpg',
+const images: Array<{ url: string, name: string }> = [{
+    url: 'https://raw.githubusercontent.com/popenovairina4/autotest-ips/refs/heads/main/src/common/foto/%D0%BF%D0%B8%D0%BE%D0%BD.jpg',
     name: 'pion',
 }, {
-    path: '/Users/irina/autotests/autotest-ips/src/common/foto/bird.jpg',
+    url: 'https://raw.githubusercontent.com/popenovairina4/autotest-ips/refs/heads/main/src/common/foto/bird.jpg',
     name: 'bird',
 }, {
-    path: '/Users/irina/autotests/autotest-ips/src/common/foto/ромашка.jpg',
+    url: 'https://raw.githubusercontent.com/popenovairina4/autotest-ips/refs/heads/main/src/common/foto/%D1%80%D0%BE%D0%BC%D0%B0%D1%88%D0%BA%D0%B0.jpg',
     name: 'romashka',
 }]
 

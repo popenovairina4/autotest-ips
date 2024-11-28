@@ -1,4 +1,3 @@
-import { browser, expect } from '@wdio/globals'
 import { auth } from "../../secrets/passwords"
 
 

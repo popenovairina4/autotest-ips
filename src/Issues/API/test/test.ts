@@ -1,6 +1,5 @@
-import { expect } from '@wdio/globals'
 import { AxiosResponse } from "axios"
-import { getRandomString } from "../../../test/lab 1/laboratory 8"
+import { getRandomString } from "../../../common/getRandomString"
 import { IssueAPIProvider } from "../Createissue/IssueAPIProvider"
 import { CreateIssueResponse } from "../Createissue/issueAPIService"
 import { CreateIssueRequest } from "../Createissue/IssueAPIData"
