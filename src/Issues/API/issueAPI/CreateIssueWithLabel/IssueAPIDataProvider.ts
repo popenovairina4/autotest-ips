@@ -1,13 +1,13 @@
-import { LabelModel } from "../../../model/label.issue.model"
+import { LabelModel } from "../../model/label.issue.model"
 
-type PostIssueRequest = {
+type CreateIssueRequest = {
     name: string,
     description: string,
     title: string
 }
 
 class IssueAPIDataProvider {
-    public static getIssueData(issue: LabelModel): PostIssueRequest {
+    public static getIssueData(issue: LabelModel): CreateIssueRequest { // в модель ишью добавить лдейблы[]
         return {
             name: issue.name,
             description: issue.description,
@@ -16,6 +16,6 @@ class IssueAPIDataProvider {
     }
 }
 export {
-    PostIssueRequest,
+    CreateIssueRequest,
     IssueAPIDataProvider,
 }

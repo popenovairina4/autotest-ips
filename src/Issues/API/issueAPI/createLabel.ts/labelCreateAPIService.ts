@@ -1,34 +1,33 @@
 import { AxiosResponse } from "axios"
-import { LabelModel } from "../../../model/label.issue.model"
-import { LabelAPIProvider } from "./labelAPIProvider"
-import { LabelAPIDataProvider, PostLabelRequest } from "./labelAPIDataProvider"
+import { LabelModel } from "../../model/label.issue.model"
+import { LabelAPIDataProvider, LabelRequest } from "./labelAPIDataProvider"
+import { LabelAPIProvider } from "./LabelAPIProvider"
 
-type GetLabelResponse = {
+type LabelResponse = {
     name: string,
     id: number,
 }
 
-type DeleteLabelResponse = {
+//type DeleteLabelResponse = {
 
-}
+//}
 
 class LabelCreateAPIService {
-    public static async createLabel(owner: string, repo: string, labelModel: LabelModel): Promise<GetLabelResponse> {
-        const data: PostLabelRequest = LabelAPIDataProvider.getLabelData(labelModel)
+    public static async createLabel(owner: string, repo: string, labelModel: LabelModel): Promise<LabelResponse> {
+        const data: LabelRequest = LabelAPIDataProvider.getLabelData(labelModel)
         const labelAPIProvider: LabelAPIProvider = new LabelAPIProvider()
-        const response: AxiosResponse<GetLabelResponse> = await labelAPIProvider.createLabel(owner, repo, data)
+        const response: AxiosResponse<LabelResponse> = await labelAPIProvider.createLabel(owner, repo, data)
         return response.data
     }
 
-    public static async deleteLabel(owner: string, repo: string, labelModel: LabelModel): Promise<DeleteLabelResponse> {
-        const data: PostLabelRequest = LabelAPIDataProvider.getLabelData(labelModel)
+    public static async deleteLabel(owner: string, repo: string, labelModel: LabelModel): Promise<void> {
+        const data: LabelRequest = LabelAPIDataProvider.getLabelData(labelModel)
         const labelAPIProvider: LabelAPIProvider = new LabelAPIProvider()
-        const response: AxiosResponse<GetLabelResponse> = await labelAPIProvider.deleteLabel(owner, repo, data)
-        return response.data
+        await labelAPIProvider.deleteLabel(owner, repo, data)
     }
 }
 
 export {
-    GetLabelResponse,
+    LabelResponse,
     LabelCreateAPIService
 }

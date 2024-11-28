@@ -1,11 +1,11 @@
-import { LabelModel } from "../../../model/label.issue.model"
+import { LabelModel } from "../../model/label.issue.model"
 
-type PostLabelRequest = {
+type LabelRequest = {
     name: string
 }
 
 class LabelAPIDataProvider {
-    public static getLabelData(label: LabelModel): PostLabelRequest {
+    public static getLabelData(label: LabelModel): LabelRequest {
         return {
             name: label.name
         }
@@ -13,6 +13,6 @@ class LabelAPIDataProvider {
 }
 
 export {
-    PostLabelRequest,
+    LabelRequest,
     LabelAPIDataProvider,
 }

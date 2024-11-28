@@ -14,7 +14,7 @@
             "webdriverio/async",
             "@wdio/mocha-framework",
             "expect-webdriverio",
-            "wdio-image-comparison-service"
+            "@wdio/visual-service"
         ],
         "outDir": "./misc",
     }

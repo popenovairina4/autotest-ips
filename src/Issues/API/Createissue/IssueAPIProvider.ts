@@ -1,10 +1,9 @@
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { GitAPIProvider } from "../../../common/Api/GitAPIProvider";
 import { CreateIssueRequest } from "./IssueAPIData";
-import { Issue } from "./issueAPIService";
 
 class IssueAPIProvider extends GitAPIProvider {
-    public create(owner: string, repo: string, data: CreateIssueRequest): Promise<AxiosResponse<Issue>> {
+    public create<T>(owner: string, repo: string, data: CreateIssueRequest): Promise<AxiosResponse<T>> {
         const config: AxiosRequestConfig = this.configurateRequest(
             `/repos/${owner}/${repo}/issues`,
             'POST',
@@ -13,7 +12,7 @@ class IssueAPIProvider extends GitAPIProvider {
         return this.sendRequest(config)
     }
 
-    public getIssue(owner: string, repo: string, issueNumber: number): Promise<AxiosResponse<Issue>> {
+    public getIssue<T>(owner: string, repo: string, issueNumber: number): Promise<AxiosResponse<T>> {
         const config: AxiosRequestConfig = this.configurateRequest(
             `/repos/${owner}/${repo}/issues/${issueNumber}`,
             'GET',
@@ -21,7 +20,7 @@ class IssueAPIProvider extends GitAPIProvider {
         return this.sendRequest(config)
     }
 
-    public getList(owner: string, repo: string): Promise<AxiosResponse<Issue[]>> {
+    public getList<T>(owner: string, repo: string): Promise<AxiosResponse<T>> {
         const config: AxiosRequestConfig = this.configurateRequest(
             `/repos/${owner}/${repo}/issues`,
             'GET',
@@ -29,7 +28,7 @@ class IssueAPIProvider extends GitAPIProvider {
         return this.sendRequest(config)
     }
 
-    public deleteIssue(owner: string, repo: string, issue_number: string): Promise<AxiosResponse<Issue[]>> {
+    public deleteIssue<T>(owner: string, repo: string, issue_number: string): Promise<AxiosResponse<T>> {
         const config: AxiosRequestConfig = this.configurateRequest(
             `/repos/${owner}/${repo}/issues/${issue_number}/`,
             'DELETE',

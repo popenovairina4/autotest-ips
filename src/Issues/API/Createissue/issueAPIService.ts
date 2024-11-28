@@ -1,4 +1,4 @@
-type Issue = {
+type CreateIssueResponse = {
     id: number,
     number: number,
     labels: IssueLabel[],
@@ -12,6 +12,6 @@ type IssueLabel = {
 }
 
 export {
-    Issue,
+    CreateIssueResponse,
     IssueLabel,
 }

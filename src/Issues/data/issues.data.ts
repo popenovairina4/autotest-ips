@@ -5,6 +5,12 @@ type IssueData = {
     url: string,
 }
 
+const imagePath: string[] = [
+    '/Users/irina/autotests/autotest-ips/src/common/foto/пион.jpg',
+    '/Users/irina/autotests/autotest-ips/src/common/foto/bird.jpg',
+    '/Users/irina/autotests/autotest-ips/src/common/foto/ромашка.jpg',
+]
+
 const issueData: IssueData = {
     comment: 'My comment',
     description: 'Прекрасное пленяет навсегда...',
@@ -14,5 +20,6 @@ const issueData: IssueData = {
 
 export {
     IssueData,
+    imagePath,
     issueData
 }

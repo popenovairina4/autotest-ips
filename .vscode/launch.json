@@ -16,6 +16,19 @@
       "console": "integratedTerminal",
     },
     {
+      "name": "local - chrome - all",
+      "type": "node",
+      "request": "launch",
+      "args": [
+        "src/wdio.conf.ts" // "--spec",
+        //"${relativeFile}"
+      ],
+      "cwd": "${workspaceFolder}",
+      "autoAttachChildProcesses": true,
+      "program": "${workspaceRoot}/node_modules/@wdio/cli/bin/wdio.js",
+      "console": "integratedTerminal",
+    },
+    {
       "name": "ts-run",
       "type": "node",
       "request": "launch",

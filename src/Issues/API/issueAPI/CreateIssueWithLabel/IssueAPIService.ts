@@ -1,24 +1,24 @@
 import { AxiosResponse } from "axios"
 import { IssueAPIProvider } from "./IssueAPIProvider"
-import { IssueAPIDataProvider, PostIssueRequest } from "./IssueAPIDataProvider"
-import { LabelModel } from "../../../model/label.issue.model"
+import { LabelModel } from "../../model/label.issue.model"
+import { CreateIssueRequest, IssueAPIDataProvider } from "./IssueAPIDataProvider"
 
-type PostCreateIssueResponse = {
+type CreateIssueResponse = {
     node_id: string,
     name: string,
     description: string,
 }
 
 class IssueAPIService {
-    public static async postCreateLabel(issue: LabelModel): Promise<PostCreateIssueResponse> {
-        const data: PostIssueRequest = IssueAPIDataProvider.getIssueData(issue)
+    public static async postCreateLabel(issue: LabelModel): Promise<CreateIssueResponse> {
+        const data: CreateIssueRequest = IssueAPIDataProvider.getIssueData(issue)
         const issueAPIProvider: IssueAPIProvider = new IssueAPIProvider()
-        const response: AxiosResponse<PostCreateIssueResponse> = await issueAPIProvider.postCreateIssue(data)
+        const response: AxiosResponse<CreateIssueResponse> = await issueAPIProvider.createIssue(data)
         return response.data
     }
 }
 
 export {
-    PostCreateIssueResponse,
+    CreateIssueResponse,
     IssueAPIService
 }

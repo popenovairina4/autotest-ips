@@ -1,9 +1,10 @@
 import { AxiosRequestConfig, AxiosResponse } from "axios"
 import { GitAPIProvider } from "../../../../common/Api/GitAPIProvider"
-import { PostLabelRequest } from "./labelAPIDataProvider"
+import { LabelRequest } from "./labelAPIDataProvider"
+
 
 class LabelAPIProvider extends GitAPIProvider {
-    public createLabel<T>(owner: string, repo: string, data: PostLabelRequest): Promise<AxiosResponse<T>> {
+    public createLabel<T>(owner: string, repo: string, data: LabelRequest): Promise<AxiosResponse<T>> {
         const config: AxiosRequestConfig = this.configurateRequest(
             `/repos/${owner}/${repo}/labels`,
             'POST',
@@ -12,7 +13,7 @@ class LabelAPIProvider extends GitAPIProvider {
         return this.sendRequest(config)
     }
 
-    public deleteLabel<T>(owner: string, repo: string, data: PostLabelRequest): Promise<AxiosResponse<T>> {
+    public deleteLabel<T>(owner: string, repo: string, data: LabelRequest): Promise<AxiosResponse<T>> {
         const config: AxiosRequestConfig = this.configurateRequest(
             `/repos/${owner}/${repo}/labels/${data.name}`,
             'DELETE',
