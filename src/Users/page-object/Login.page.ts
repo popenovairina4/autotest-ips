@@ -24,7 +24,7 @@ class LoginPage extends PageObject {
         await this.getSubmitButton().click()
     }
 
-    private getLoginForm(): ChainablePromiseElement<WebdriverIO.Element> {
+    private getLoginForm(): ChainablePromiseElement {
         return this.browser.$('//*[@id="login"]')
     }
     private getLoginField() {

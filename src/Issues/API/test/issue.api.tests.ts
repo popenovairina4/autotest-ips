@@ -1,3 +1,4 @@
+import { browser, expect } from '@wdio/globals'
 import { createLabelModel, LabelModel } from "../model/label.issue.model"
 import { CreateIssueRequest } from "../Createissue/IssueAPIData"
 import { getRandomString } from "../../../test/lab 1/laboratory 8"

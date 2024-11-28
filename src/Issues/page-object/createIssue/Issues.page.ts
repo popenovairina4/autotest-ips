@@ -29,15 +29,15 @@ class IssuesPage extends PageObject { // добавить урл https://github.
         await this.getTitleField().setValue(title)
     }
 
-    private getDescriptionField(): ChainablePromiseElement<WebdriverIO.Element> {
+    private getDescriptionField(): ChainablePromiseElement {
         return this.browser.$('//*[@id="issue_body"]')
     }
 
-    private getSubmitIssuesButton(): ChainablePromiseElement<WebdriverIO.Element> {
+    private getSubmitIssuesButton(): ChainablePromiseElement {
         return this.browser.$('//*[@id="new_issue"]/div/div/div[1]/div/div[1]/div/div[3]/button')
     }
 
-    private getTitleField(): ChainablePromiseElement<WebdriverIO.Element> {
+    private getTitleField(): ChainablePromiseElement {
         return this.browser.$('//*[@id="issue_title"]')
     }
 

@@ -18,12 +18,12 @@ class ProfilePage extends PageObject {
         return this.getFullNameElement().getText()
     }
 
-    private getBioElement(): ChainablePromiseElement<WebdriverIO.Element> {
+    private getBioElement(): ChainablePromiseElement {
         return this.browser.$('//div[contains(@class, "js-profile-editable-area ")]//div[contains(@class, "user-profile-bio")]/div')
     }
 
 
-    private getFullNameElement(): ChainablePromiseElement<WebdriverIO.Element> {
+    private getFullNameElement(): ChainablePromiseElement {
         return this.browser.$('//*[contains(@class, "vcard-fullname")]')
     }
 }

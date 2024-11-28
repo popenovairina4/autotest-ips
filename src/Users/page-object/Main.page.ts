@@ -7,7 +7,7 @@ class MainPage extends PageObject {
         super(browser)
     }
 
-    private getUserLOgin(): ChainablePromiseElement<WebdriverIO.Element> {
+    private getUserLOgin(): ChainablePromiseElement {
         return this.browser.$('//form[@action="/sessions/verified-device"] | //*[@data-login="ines4348"]')
     }
 

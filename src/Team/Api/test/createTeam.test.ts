@@ -1,4 +1,5 @@
-import { AxiosRequestConfig, AxiosResponse } from "axios"
+import { expect } from '@wdio/globals'
+import { AxiosResponse } from "axios"
 import { CreateTeamRequest } from "../../TeamAPIData"
 import { TeamAPIProvider } from "../TeamAPIProvider"
 
@@ -23,6 +24,6 @@ describe('Create team test', () => {
         expect(response.status).toEqual(201)
         expect(response.data.name).toEqual(data.name)
         expect(response.data.description).toBeNull()
-        expect(response.data.created_at.match.toBeDefined()
+        expect(response.data.created_at.match).toBeDefined()
     })
 })

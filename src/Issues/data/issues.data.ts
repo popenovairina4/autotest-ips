@@ -5,11 +5,16 @@ type IssueData = {
     url: string,
 }
 
-const imagePath: string[] = [
-    '/Users/irina/autotests/autotest-ips/src/common/foto/пион.jpg',
-    '/Users/irina/autotests/autotest-ips/src/common/foto/bird.jpg',
-    '/Users/irina/autotests/autotest-ips/src/common/foto/ромашка.jpg',
-]
+const images: Array<{ path: string, name: string }> = [{
+    path: '/Users/irina/autotests/autotest-ips/src/common/foto/пион.jpg',
+    name: 'pion',
+}, {
+    path: '/Users/irina/autotests/autotest-ips/src/common/foto/bird.jpg',
+    name: 'bird',
+}, {
+    path: '/Users/irina/autotests/autotest-ips/src/common/foto/ромашка.jpg',
+    name: 'romashka',
+}]
 
 const issueData: IssueData = {
     comment: 'My comment',
@@ -20,6 +25,6 @@ const issueData: IssueData = {
 
 export {
     IssueData,
-    imagePath,
+    images,
     issueData
 }

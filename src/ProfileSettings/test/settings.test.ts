@@ -1,3 +1,4 @@
+import { browser, expect } from '@wdio/globals'
 import { createUserModel, UserModel } from "../../Users/model/user.model"
 import { ProfilePage } from "../page-object/profile/Profile.page"
 import { MainSettings } from "../page-object/settings/Main.page.settings"

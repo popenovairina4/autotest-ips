@@ -1,3 +1,4 @@
+import { browser, expect } from '@wdio/globals'
 import { getRandomString } from "../../test/lab 1/laboratory 8"
 import { userData } from "../../Users/data/user.data"
 import { createUserModel, UserModel } from "../../Users/model/user.model"

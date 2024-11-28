@@ -1,13 +1,7 @@
 import { getSpecs } from "./common/getSpecs";
 
 export const config: WebdriverIO.Config = {
-    autoCompileOpts: {
-        autoCompile: true,
-        tsNodeOpts: {
-            transpileOnly: true,
-            project: './tsconfig.json'
-        }
-    },
+    runner: 'local',
     specs: getSpecs(),   //['./src/**/*.test.ts'], //['./src/**/issue/**/*.test.ts']
     maxInstances: 5,
     capabilities: [{
@@ -22,13 +16,13 @@ export const config: WebdriverIO.Config = {
     connectionRetryTimeout: 60000,
     connectionRetryCount: 3,
     services: [
-        'chromedriver',
         ['visual', {
             autoSaveBaseline: true,
             clearRuntimeFolder: true,
             baselineFolder: `./reference-screenshots`,
             formatImageName: `{tag}-{browserName}`,
-            screenshotPath: `./actual-screenshots`
+            screenshotPath: `./actual-screenshots`,
+
         }],
     ],
     reporters: ['spec'],

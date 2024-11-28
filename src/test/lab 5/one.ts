@@ -1,3 +1,4 @@
+import { browser, expect } from '@wdio/globals'
 import { userData } from "../../Users/data/user.data"
 import { MainIssues } from "../../Issues/page-object/Issues.main"
 import { MainNegativeIssues } from "../../Issues/page-object/Issues.negative.main"

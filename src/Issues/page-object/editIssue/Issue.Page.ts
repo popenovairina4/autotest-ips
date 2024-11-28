@@ -239,103 +239,103 @@ class IssuePage extends PageObject {
         return isDisplayed
     }
 
-    private getEditButton(): ChainablePromiseElement<WebdriverIO.Element> {
+    private getEditButton(): ChainablePromiseElement {
         return this.browser.$('//*[@id="partial-discussion-header"]/div[1]/div/div/button')
     }
 
-    private getSaveTitleButton(): ChainablePromiseElement<WebdriverIO.Element> {
+    private getSaveTitleButton(): ChainablePromiseElement {
         return this.browser.$('//*[contains(@id, "edit_header")]/div/button[1]')
     }
 
-    private getTitleField(): ChainablePromiseElement<WebdriverIO.Element> {
+    private getTitleField(): ChainablePromiseElement {
         return this.browser.$('//*[@id="issue_title"]')
     }
 
-    private getDescriptionField(): ChainablePromiseElement<WebdriverIO.Element> {
+    private getDescriptionField(): ChainablePromiseElement {
         return this.browser.$('//*[@name="issue[body]"]')
     }
 
-    private getTitleTextElement(): ChainablePromiseElement<WebdriverIO.Element> {
+    private getTitleTextElement(): ChainablePromiseElement {
         return this.browser.$('//*[@id="partial-discussion-header"]/div[1]/div/h1/bdi')
     }
 
-    private getDescriptionTextElement(): ChainablePromiseElement<WebdriverIO.Element> {
+    private getDescriptionTextElement(): ChainablePromiseElement {
         return this.browser.$('//*[contains(@id, "issue")]/div[3]/div[2]/task-lists/table/tbody/tr[1]/td')
     }
 
-    private getLastCommentTextElement(): ChainablePromiseElement<WebdriverIO.Element> {
+    private getLastCommentTextElement(): ChainablePromiseElement {
         return this.browser.$('(//div[contains(@id,"issuecomment")])[last()-1]/div/div[2]/task-lists/table/tbody/tr/td')
     }
 
-    private getCommentField(): ChainablePromiseElement<WebdriverIO.Element> {
+    private getCommentField(): ChainablePromiseElement {
         return this.browser.$('//*[@id="new_comment_field"]')
     }
 
-    private getDescriptionMenuButtonElement(): ChainablePromiseElement<WebdriverIO.Element> {
+    private getDescriptionMenuButtonElement(): ChainablePromiseElement {
         return this.browser.$('//details[1]/summary')
     }
 
-    private getDescriptionMenuEditElement(): ChainablePromiseElement<WebdriverIO.Element> {
+    private getDescriptionMenuEditElement(): ChainablePromiseElement {
         return this.browser.$('//details[1]/details-menu/button[contains(@class, "js-comment-edit-button")]')
     }
 
-    private getDescriptionUpdateButtonElement(): ChainablePromiseElement<WebdriverIO.Element> {
+    private getDescriptionUpdateButtonElement(): ChainablePromiseElement {
         return this.browser.$('//*[contains(@id,"edit-form")]/div/div[2]/div[2]/button[@type="submit"]')
     }
 
-    private getCommentButtonElement(): ChainablePromiseElement<WebdriverIO.Element> {
+    private getCommentButtonElement(): ChainablePromiseElement {
         return this.browser.$('//*[@id="partial-new-comment-form-actions"]/div[3]/div[2]/button')
     }
 
-    private getLockConversationButtonElement(): ChainablePromiseElement<WebdriverIO.Element> {
+    private getLockConversationButtonElement(): ChainablePromiseElement {
         return this.browser.$('//*[@id="partial-discussion-sidebar"]/div[7]/details/summary')
     }
 
-    private getLockConversationPopupButtonElement(): ChainablePromiseElement<WebdriverIO.Element> {
+    private getLockConversationPopupButtonElement(): ChainablePromiseElement {
         return this.browser.$('//*[@id="partial-discussion-sidebar"]/div[7]/details/details-dialog/form/div[3]/button')
     }
 
-    private getLastEventTextElement(): ChainablePromiseElement<WebdriverIO.Element> {
+    private getLastEventTextElement(): ChainablePromiseElement {
         return this.browser.$('(//*[contains(@id,"event")])[last()]/div[2]')
     }
 
-    private getCloseIssueButtonElement(): ChainablePromiseElement<WebdriverIO.Element> {
+    private getCloseIssueButtonElement(): ChainablePromiseElement {
         return this.browser.$('//close-reason-selector/div/button')
     }
 
-    private getReopenIssueButtonElement(): ChainablePromiseElement<WebdriverIO.Element> {
+    private getReopenIssueButtonElement(): ChainablePromiseElement {
         return this.browser.$('//reopen-reason-selector/div/button')
     }
 
-    private getDeleteIssueButtonElement(): ChainablePromiseElement<WebdriverIO.Element> {
+    private getDeleteIssueButtonElement(): ChainablePromiseElement {
         return this.browser.$('//*[@id="partial-discussion-sidebar"]/div[9]/details/summary')
     }
 
-    private getDeleteIssuePopupButtonElement(): ChainablePromiseElement<WebdriverIO.Element> {
+    private getDeleteIssuePopupButtonElement(): ChainablePromiseElement {
         return this.browser.$('//details-dialog//*[contains(@id,"edit_issue")]/button')
     }
 
-    private getIssueDeletedTextElement(): ChainablePromiseElement<WebdriverIO.Element> {
+    private getIssueDeletedTextElement(): ChainablePromiseElement {
         return this.browser.$('//*[@id="repo-content-pjax-container"]/div/div[1]/div/h2')
     }
 
-    private getLabelButtonlement(): ChainablePromiseElement<WebdriverIO.Element> {
+    private getLabelButtonlement(): ChainablePromiseElement {
         return this.browser.$('//*[@id="labels-select-menu"]/summary')
     }
 
-    private getLabelMenuItemElement(labelNumber: number): ChainablePromiseElement<WebdriverIO.Element> {
+    private getLabelMenuItemElement(labelNumber: number): ChainablePromiseElement {
         return this.browser.$(`//input[@value=${labelNumber}]/ancestor::label`)
     }
 
-    private getCheckedLabelMenuItemElement(labelNumber: number): ChainablePromiseElement<WebdriverIO.Element> {
+    private getCheckedLabelMenuItemElement(labelNumber: number): ChainablePromiseElement {
         return this.browser.$(`//input[@value=${labelNumber}]/ancestor::label[@aria-checked="true"]`)
     }
 
-    private geIssueLabelElement(labelName: string): ChainablePromiseElement<WebdriverIO.Element> {
+    private geIssueLabelElement(labelName: string): ChainablePromiseElement {
         return this.browser.$(`//div[contains(@class, "js-issue-labels")]/a[@data-name="${labelName}"]`)
     }
 
-    private geIssueLabelNoneElement(): ChainablePromiseElement<WebdriverIO.Element> {
+    private geIssueLabelNoneElement(): ChainablePromiseElement {
         return this.browser.$(`//*[@id="partial-discussion-sidebar"]/div[2]/div`)
     }
 }

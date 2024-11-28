@@ -1,3 +1,6 @@
+import { browser } from '@wdio/globals'
+
+
 describe('test describe', () => {
     before(async () => {
         // runs once before the first test in this block

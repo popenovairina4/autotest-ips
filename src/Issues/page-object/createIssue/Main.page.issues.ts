@@ -30,11 +30,11 @@ class MainIssues extends PageObject { // переименовать наслед
         return this.getSuccessSectionMessage().isDisplayed()
     }
 
-    private getFailedSectionMessage(): ChainablePromiseElement<WebdriverIO.Element> {
+    private getFailedSectionMessage(): ChainablePromiseElement {
         return this.browser.$('//*[@id="new_issue"]/div/div/div[1]/div/div[1]/div/tab-container/div[2]')
     }
 
-    private getSuccessSectionMessage(): ChainablePromiseElement<WebdriverIO.Element> {
+    private getSuccessSectionMessage(): ChainablePromiseElement {
         return this.browser.$('//*[@id="partial-discussion-header"]/div[3]/div[4]')
     }
 }

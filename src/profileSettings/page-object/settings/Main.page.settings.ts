@@ -18,15 +18,15 @@ class MainSettings extends PageObject {
         return this.getSuccessSectionMassage().isDisplayed()
     }
 
-    private getAvatarSectionMessage(): ChainablePromiseElement<WebdriverIO.Element> {
+    private getAvatarSectionMessage(): ChainablePromiseElement {
         return this.browser.$('//*[@id="js-flash-container"]/div')
     }
 
-    private getFailedSectionMassage(): ChainablePromiseElement<WebdriverIO.Element> {
+    private getFailedSectionMassage(): ChainablePromiseElement {
         return this.browser.$('//*[@id="js-flash-container"]');
     }
 
-    private getSuccessSectionMassage(): ChainablePromiseElement<WebdriverIO.Element> {
+    private getSuccessSectionMassage(): ChainablePromiseElement {
         return this.browser.$('/html/body/div[1]/div[4]/main/div[1]')
     }
 }

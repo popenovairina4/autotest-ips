@@ -63,31 +63,31 @@ class SettingsPage extends PageObject {
         await this.getUpdateButton().click()
     }
 
-    private getAvatarField(): ChainablePromiseElement<WebdriverIO.Element> {
+    private getAvatarField(): ChainablePromiseElement {
         return this.browser.$('//*[@id="settings-frame"]/div[2]/div[2]/dl/dd/div/details/summary/img')
     }
 
-    private getBioField(): ChainablePromiseElement<WebdriverIO.Element> {
+    private getBioField(): ChainablePromiseElement {
         return this.browser.$('//*[@id="user_profile_bio"]')
     }
 
-    private getEmailField(): ChainablePromiseElement<WebdriverIO.Element> {
+    private getEmailField(): ChainablePromiseElement {
         return this.browser.$('//*[@id="user_profile_email"]')
     }
 
-    private getInputFile(): ChainablePromiseElement<WebdriverIO.Element> {
+    private getInputFile(): ChainablePromiseElement {
         return this.browser.$('#avatar_upload')
     }
 
-    private getNameField(): ChainablePromiseElement<WebdriverIO.Element> {
+    private getNameField(): ChainablePromiseElement {
         return this.browser.$('//*[@id="user_profile_name"]')
     }
 
-    private getPronounsField(): ChainablePromiseElement<WebdriverIO.Element> {
+    private getPronounsField(): ChainablePromiseElement {
         return this.browser.$('//*[@id="user_profile_pronouns_select"]')
     }
 
-    private getUpdateButton(): ChainablePromiseElement<WebdriverIO.Element> {
+    private getUpdateButton(): ChainablePromiseElement {
         return this.browser.$('//*[@id="edit_user_183081302"]/div/p[2]/button')
     }
 }

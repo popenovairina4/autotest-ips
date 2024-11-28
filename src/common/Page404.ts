@@ -15,7 +15,7 @@ class Page404 {
         return await this.get404ImgElement().isDisplayed()
     }
 
-    private get404ImgElement(): ChainablePromiseElement<WebdriverIO.Element> {
+    private get404ImgElement(): ChainablePromiseElement {
         return this.browser.$('//img[@alt="404 “This is not the web page you are looking for”"]')
     }
 }
