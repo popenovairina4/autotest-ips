@@ -1,6 +1,7 @@
 import { ChainablePromiseElement } from 'webdriverio'
 import { IssueModel } from '../../model/issue.model'
 import { PageObject } from '../../../common/page-object/PageObject'
+import { Reporter } from '../../../common/reporter/Reporter'
 
 class IssuePage extends PageObject {
     protected browser: WebdriverIO.Browser
@@ -178,32 +179,44 @@ class IssuePage extends PageObject {
     }
 
     public async addIssueLabel(labelNumber: number): Promise<void> {
+        Reporter.addStep('Wait for Label button')
         await this.getLabelButtonlement().waitForClickable({
             timeoutMsg: 'Label button was not clickable',
         })
+
+        Reporter.addStep('Label button click')
         await this.getLabelButtonlement().click()
 
+        Reporter.addStep('Wait for Label menu item element')
         await this.getLabelMenuItemElement(labelNumber).waitForClickable({
             timeoutMsg: 'Label menu item element is not clickable',
         })
 
+        Reporter.addStep('Label menu item element click')
         await this.getLabelMenuItemElement(labelNumber).click()
 
+        Reporter.addStep('Label button click')
         await this.getLabelButtonlement().click()
     }
 
     public async deleteIssueLabel(labelNumber: number): Promise<void> {
+        Reporter.addStep('Wait for Label button')
         await this.getLabelButtonlement().waitForClickable({
             timeoutMsg: 'Label button was not clickable',
         })
+
+        Reporter.addStep('Label button click')
         await this.getLabelButtonlement().click()
 
+        Reporter.addStep('Wait for Label menu item')
         await this.getCheckedLabelMenuItemElement(labelNumber).waitForClickable({
             timeoutMsg: 'Label menu item element is not clickable',
         })
 
+        Reporter.addStep('Checked Label Menu Item click')
         await this.getCheckedLabelMenuItemElement(labelNumber).click()
 
+        Reporter.addStep('Label button click')
         await this.getLabelButtonlement().click()
     }
 
@@ -215,25 +228,29 @@ class IssuePage extends PageObject {
     }
 
     public async isDisplayedIssueNoneLabels(): Promise<boolean> {
+        Reporter.addStep('Wait for display Issue none labels element')
         await this.geIssueLabelNoneElement().waitForDisplayed({
             timeoutMsg: 'Issue none labels element was not displayed',
         })
 
+        Reporter.addStep('Check Issue none labels element text = "None yet"')
         const isNoneLabels = await this.browser.waitUntil(async () => {
             return (await this.geIssueLabelNoneElement().getText()) === 'None yet'
         }, {
             timeout: 5000,
-            timeoutMsg: 'expected text "None yet" to be different after 5s'
+            timeoutMsg: 'expected text "None yet" to be different after 5s',
         })
 
         return isNoneLabels === true
     }
 
     public async isDisplayedIssueLabel(labelName: string): Promise<boolean> {
+        Reporter.addStep('Wait for display Issue label element')
         await this.geIssueLabelElement(labelName).waitForDisplayed({
             timeoutMsg: 'Issue label element was not displayed',
         })
 
+        Reporter.addStep('Is Issue label element displayed')
         const isDisplayed = await this.geIssueLabelElement(labelName).isDisplayed()
 
         return isDisplayed
@@ -341,5 +358,5 @@ class IssuePage extends PageObject {
 }
 
 export {
-    IssuePage
+    IssuePage,
 }

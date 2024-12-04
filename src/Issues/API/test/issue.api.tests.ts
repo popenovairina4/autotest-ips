@@ -62,10 +62,13 @@ describe('Issue API test', () => {
 
         it('Create issue with label and remove label', async () => {
             const issuePage: IssuePage = new IssuePage(browser, issueWithLabelUrl)
+            Reporter.addStep('Open issue page')
             await issuePage.open()
 
+            Reporter.addStep('Delete Issue Label')
             await issuePage.deleteIssueLabel(labelId)
 
+            Reporter.addStep('Check if none labels in issue')
             const isNoneLabels = await issuePage.isDisplayedIssueNoneLabels()
 
             expect(isNoneLabels).toEqual(true)
