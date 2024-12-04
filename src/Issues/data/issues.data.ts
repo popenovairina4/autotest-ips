@@ -3,6 +3,7 @@ type IssueData = {
     description: string,
     title: string,
     url: string,
+    labels?: string[],
 }
 
 const images: Array<{ url: string, name: string }> = [{
@@ -20,11 +21,11 @@ const issueData: IssueData = {
     comment: 'My comment',
     description: 'Прекрасное пленяет навсегда...',
     title: 'Be one',
-    url: ''
+    url: '',
 }
 
 export {
     IssueData,
     images,
-    issueData
+    issueData,
 }

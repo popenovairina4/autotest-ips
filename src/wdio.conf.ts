@@ -9,7 +9,7 @@ export const config: WebdriverIO.Config = {
         'goog:chromeOptions': {
             args: ['window-size=1366,768'],
         },
-        acceptInsecureCerts: true
+        acceptInsecureCerts: true,
     }],
     logLevel: 'error',
     waitforTimeout: 20000,
@@ -25,10 +25,25 @@ export const config: WebdriverIO.Config = {
 
         }],
     ],
-    reporters: ['spec'],
+    reporters: ['spec',
+        ['allure', {
+            outputDir: 'allure-results',
+            disableWebdriverStepsReporting: true,
+        }],
+    ],
     framework: 'mocha',
     mochaOpts: {
         ui: 'bdd',
-        timeout: 60000
+        timeout: 60000,
+    },
+
+    afterTest: async function (
+        test: unknown,
+        context: unknown,
+        result: { error?: unknown, duration: unknown, passed: unknown },
+    ) {
+        if (result.error) {
+            // await browser.takeScreenshot()
+        }
     },
 }

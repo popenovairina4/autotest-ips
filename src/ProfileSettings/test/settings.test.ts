@@ -40,7 +40,7 @@ describe('Profile form', () => {
             expect(profileFullName).toEqual(updateSettings.name)
         })
 
-        it.skip('Загрузка аватарки', async () => {
+        it('Загрузка аватарки', async () => {
             await settingsPage.uploadFile('/Users/irina/autotests/autotest-ips/src/common/foto/пион.jpg')// перенести в common
 
             const isDisplayedElement: boolean = await mainSettings.isDisplayedCorrectAvatar()

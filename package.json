@@ -4,6 +4,7 @@
     "main": "index.js",
     "devDependencies": {
         "@types/qs": "6.9.7",
+        "@wdio/allure-reporter": "9.2.14",
         "@wdio/browser-runner": "^9.4.1",
         "@wdio/cli": "9.4.1",
         "@wdio/local-runner": "9.4.1",

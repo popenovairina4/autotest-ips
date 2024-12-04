@@ -6,6 +6,7 @@ type IssueModel = {
     description: string,
     comment: string,
     url: string
+    labels?: string[],
 }
 
 function createIssueModel(data?: Partial<IssueData>): IssueModel { //изменить тип передаваемого значения (было IssueModel)
@@ -14,10 +15,11 @@ function createIssueModel(data?: Partial<IssueData>): IssueModel { //измен�
         description: data?.description ?? getRandomString(),
         comment: data?.comment ?? getRandomString(),
         url: data?.url ?? '',
+        labels: data?.labels,
     }
 }
 
 export {
     createIssueModel,
-    IssueModel
+    IssueModel,
 }

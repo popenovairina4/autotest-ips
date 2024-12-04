@@ -107,6 +107,8 @@ describe('Login form', () => {
     })
 
     afterEach(async () => {
-        await browser.reloadSession()
+        // https://github.com/webdriverio/webdriverio/issues/13789
+        // await browser.reloadSession()
+        await browser.deleteCookies()
     })
 })

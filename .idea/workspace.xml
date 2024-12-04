@@ -1,28 +1,86 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="89f31ea6-4ea1-4dc9-aa19-a708bd5d71f6" name="Changes" comment="" />
+    <list default="true" id="89f31ea6-4ea1-4dc9-aa19-a708bd5d71f6" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/Issues/API/IssueAPI/IssueAPIDataProvider.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Issues/API/IssueAPI/IssueAPIService.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Issues/API/Createissue/IssueAPIData.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Issues/API/Createissue/IssueAPIProvider.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Issues/API/IssueAPI/IssueAPIProvider.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Issues/API/Createissue/issueAPIService.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Issues/API/issueAPI/CreateIssueWithLabel/IssueAPIDataProvider.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Issues/API/issueAPI/CreateIssueWithLabel/IssueAPIProvider.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Issues/API/issueAPI/CreateIssueWithLabel/IssueAPIService.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Issues/API/issueAPI/createLabel.ts/labelAPIDataProvider.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Issues/API/LabelAPI/LabelAPIDataProvider.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Issues/API/issueAPI/createLabel.ts/labelAPIProvider.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Issues/API/LabelAPI/LabelAPIProvider.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Issues/API/issueAPI/createLabel.ts/labelCreateAPIService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Issues/API/LabelAPI/LabelCreateAPIService.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Issues/API/model/label.issue.model.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Issues/API/model/label.issue.model.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Issues/API/test/issue.api.tests.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Issues/API/test/issue.api.tests.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Issues/API/test/test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Issues/API/test/test.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Issues/data/issues.data.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Issues/data/issues.data.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Issues/data/label.issue.data.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Issues/data/label.issue.data.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Issues/model/issue.model.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Issues/model/issue.model.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Issues/screenshots/screenshots.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Issues/screenshots/screenshots.test.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ProfileSettings/test/settings.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/ProfileSettings/test/settings.test.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Users/page-object/Login.page.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Users/page-object/Login.page.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Users/test/all.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Users/test/all.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/wdio.conf.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/wdio.conf.ts" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FormatOnSaveOptions">
+    <option name="myRunOnSave" value="true" />
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="OptimizeOnSaveOptions">
+    <option name="myRunOnSave" value="true" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 8
+}]]></component>
   <component name="ProjectId" id="2LigfeTDixs7i4eaiUd3mSVqO7v" />
   <component name="ProjectViewState">
+    <option name="autoscrollFromSource" value="true" />
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="nodejs_package_manager_path" value="npm" />
-    <property name="ts.external.directory.path" value="C:\projects\autotest-ips\node_modules\typescript\lib" />
-    <property name="vue.rearranger.settings.migration" value="true" />
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Node.js.run-local.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "code.cleanup.on.save": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "/Users/irina/autotests/autotest-ips",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "actions.on.save",
+    "ts.external.directory.path": "/Users/irina/autotests/autotest-ips/node_modules/typescript/lib",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/Issues/API/IssueAPI" />
+      <recent name="$PROJECT_DIR$/src/Issues/API" />
+    </key>
+    <key name="es6.move.members.recent.items">
+      <recent name="$PROJECT_DIR$/src/Issues/API/IssueAPIDataProvider.ts" />
+      <recent name="$PROJECT_DIR$/src/Issues/API/IssueAPIService.ts" />
+    </key>
   </component>
   <component name="RunManager" selected="Node.js.run-local">
     <configuration name="run-local-all" type="NodeJSConfigurationType" application-parameters="./src/wdio.conf.ts" path-to-js-file="node_modules/@wdio/cli/bin/wdio.js" working-dir="$PROJECT_DIR$">
@@ -36,6 +94,13 @@
       <item itemvalue="Node.js.run-local-all" />
     </list>
   </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-WS-242.23339.15" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -45,6 +110,7 @@
       <option name="presentableId" value="Default" />
       <updated>1676359422070</updated>
       <workItem from="1676359423290" duration="1656000" />
+      <workItem from="1733342235686" duration="6245000" />
     </task>
     <servers />
   </component>

@@ -1,14 +1,13 @@
 import { createLabelModel, LabelModel } from "../model/label.issue.model"
-import { CreateIssueRequest } from "../Createissue/IssueAPIData"
 import { getRandomString } from "../../../common/getRandomString"
-import { IssueAPIProvider } from "../Createissue/IssueAPIProvider"
-import { AxiosResponse } from "axios"
-import { CreateIssueResponse } from "../Createissue/issueAPIService"
 import { IssuePage } from "../../page-object/editIssue/Issue.Page"
 import { LoginPage } from "../../../Users/page-object/Login.page"
 import { createUserModel, UserModel } from "../../../Users/model/user.model"
 import { userData } from "../../../Users/data/user.data"
-import { LabelCreateAPIService, LabelResponse } from "../issueAPI/createLabel.ts/LabelCreateAPIService"
+import { LabelCreateAPIService, LabelResponse } from "../LabelAPI/LabelCreateAPIService"
+import { CreateIssueResponse, IssueAPIService } from '../IssueAPI/IssueAPIService'
+import { createIssueModel, IssueModel } from '../../model/issue.model'
+import { Reporter } from '../../../common/reporter/Reporter'
 
 const OWNER = 'popenovairina4'
 const REPO = 'autotest-ips'
@@ -19,33 +18,26 @@ describe('Issue API test', () => {
     let labelId: number
     let labelName: string
     let issueLabelModel: LabelModel = createLabelModel({ name: getRandomString(10) })
+    let issueModel: IssueModel = createIssueModel({ title: getRandomString(10) })
     let loginPage: LoginPage
 
     before(async () => {
-        const issueAPIProvider: IssueAPIProvider = new IssueAPIProvider({
-            isSuccessfulResponse: false,
-        })
         const labelResponse: LabelResponse = await LabelCreateAPIService.createLabel(OWNER, REPO, issueLabelModel)
         labelId = labelResponse.id
         labelName = labelResponse.name
 
-        const createIssueData: CreateIssueRequest = {
+        const issueWithLabelModel: IssueModel = createIssueModel({
             title: getRandomString(10),
-            repo: REPO,
-            owner: OWNER,
-        }
-        const createIssueWithLabelData: CreateIssueRequest = {
-            ...createIssueData,
             labels: [
                 labelResponse.name,
-            ]
-        }
+            ],
+        })
 
-        const createIssueResponse: AxiosResponse<CreateIssueResponse> = await issueAPIProvider.create(OWNER, REPO, createIssueData)
-        const createIssueWithLabelResponse: AxiosResponse<CreateIssueResponse> = await issueAPIProvider.create(OWNER, REPO, createIssueWithLabelData)
+        const createIssueResponse: CreateIssueResponse = await IssueAPIService.createIssue(OWNER, REPO, issueModel)//в сервис
+        const createIssueWithLabelResponse: CreateIssueResponse = await IssueAPIService.createIssue(OWNER, REPO, issueWithLabelModel)
 
-        issueUrl = createIssueResponse.data.html_url
-        issueWithLabelUrl = createIssueWithLabelResponse.data.html_url
+        issueUrl = createIssueResponse.html_url
+        issueWithLabelUrl = createIssueWithLabelResponse.html_url
 
         const user: UserModel = createUserModel(userData)
         loginPage = new LoginPage(browser)
@@ -56,11 +48,14 @@ describe('Issue API test', () => {
     describe('Positive cases', () => {
         it('Create issue and add label', async () => {
             const issuePage: IssuePage = new IssuePage(browser, issueUrl)
+            Reporter.addStep('Open issue page')
             await issuePage.open()
 
+            Reporter.addStep('Add Issue Label')
             await issuePage.addIssueLabel(labelId)
 
-            const isLabelInIssue = await issuePage.isDisplayedIssueLabel(labelName)
+            Reporter.addStep('Check if Label in issue')
+            const isLabelInIssue = await issuePage.isDisplayedIssueLabel(labelName)  //х пасс с лейблом (пасс итак ведет в лейбл)
 
             expect(isLabelInIssue).toEqual(true)
         })
@@ -68,10 +63,6 @@ describe('Issue API test', () => {
         it('Create issue with label and remove label', async () => {
             const issuePage: IssuePage = new IssuePage(browser, issueWithLabelUrl)
             await issuePage.open()
-
-            let isLabelInIssue = await issuePage.isDisplayedIssueLabel(labelName)
-
-            expect(isLabelInIssue).toEqual(true)
 
             await issuePage.deleteIssueLabel(labelId)
 

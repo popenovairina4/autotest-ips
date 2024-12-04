@@ -1,7 +1,3 @@
-import { CreateIssueRequest } from "../API/Createissue/IssueAPIData"
-import { IssueAPIProvider } from "../API/Createissue/IssueAPIProvider"
-import { CreateIssueResponse } from "../API/Createissue/issueAPIService"
-import { AxiosResponse } from "axios"
 import { images } from "../data/issues.data"
 import { IssuePage } from "../page-object/editIssue/Issue.Page"
 import { Result } from '@wdio/visual-service/dist/types'
@@ -10,6 +6,7 @@ import { createIssueModel, IssueModel } from "../model/issue.model"
 import { LoginPage } from "../../Users/page-object/Login.page"
 import { createUserModel, UserModel } from "../../Users/model/user.model"
 import { userData } from "../../Users/data/user.data"
+import { CreateIssueResponse, IssueAPIService } from '../API/IssueAPI/IssueAPIService'
 
 const OWNER = 'popenovairina4'
 const REPO = 'autotest-ips'
@@ -17,25 +14,15 @@ const REPO = 'autotest-ips'
 
 describe('picture test', () => {
     let issueUrl: string
-    let issueAPIProvider: IssueAPIProvider
     let issueForEdit: IssueModel = createIssueModel()
     let loginPage: LoginPage
     let issuePage: IssuePage
+    let issueModel: IssueModel = createIssueModel({ title: getRandomString(10) })
 
     before(async () => {
-        issueAPIProvider = new IssueAPIProvider({
-            isSuccessfulResponse: false,
-        })
+        const createIssueResponse: CreateIssueResponse = await IssueAPIService.createIssue(OWNER, REPO, issueModel)//в сервис
 
-        const createIssueData: CreateIssueRequest = {
-            title: getRandomString(10),
-            repo: REPO,
-            owner: OWNER,
-        }
-
-        const createIssueResponse: AxiosResponse<CreateIssueResponse> = await issueAPIProvider.create(OWNER, REPO, createIssueData)
-
-        issueUrl = createIssueResponse.data.html_url
+        issueUrl = createIssueResponse.html_url
 
         issuePage = new IssuePage(browser, issueUrl)
 

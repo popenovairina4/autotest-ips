@@ -1,8 +1,8 @@
-import { AxiosResponse } from "axios"
-import { getRandomString } from "../../../common/getRandomString"
-import { IssueAPIProvider } from "../Createissue/IssueAPIProvider"
-import { CreateIssueResponse } from "../Createissue/issueAPIService"
-import { CreateIssueRequest } from "../Createissue/IssueAPIData"
+import {AxiosResponse} from "axios"
+import {getRandomString} from "../../../common/getRandomString"
+import {IssueAPIProvider} from "../IssueAPI/IssueAPIProvider"
+import {CreateIssueResponse} from '../IssueAPI/IssueAPIService'
+import {CreateIssueRequestData} from '../IssueAPI/IssueAPIDataProvider'
 
 const OWNER = 'popenovairina4'
 const REPO = 'autotest-ips'
@@ -11,10 +11,8 @@ const INVALIDREPO = '%###'
 
 describe('Create issue test', () => {
     it('issue should be createDebuggerStatement, code is 201', async () => {
-        const data: CreateIssueRequest = {
+        const data: CreateIssueRequestData = {
             title: getRandomString(10),
-            repo: REPO,
-            owner: OWNER
         }
 
         const issueAPIProvider: IssueAPIProvider = new IssueAPIProvider({
@@ -35,10 +33,8 @@ describe('Create issue test', () => {
     })
 
     it('should return 422 error, code is Unprocessable Entity', async () => {
-        const data: CreateIssueRequest = {
+        const data: CreateIssueRequestData = {
             title: getRandomString(0),
-            repo: REPO,
-            owner: OWNER
         }
 
         const issueAPIProvider: IssueAPIProvider = new IssueAPIProvider({
@@ -52,10 +48,8 @@ describe('Create issue test', () => {
     })
 
     it('should be 410, code is Gone', async () => {
-        const data: CreateIssueRequest = {
+        const data: CreateIssueRequestData = {
             title: getRandomString(10),
-            repo: REPOWITHOUTISSUE,
-            owner: OWNER
         }
 
         const issueAPIProvider: IssueAPIProvider = new IssueAPIProvider({
@@ -69,10 +63,8 @@ describe('Create issue test', () => {
     })
 
     it('issue should be createDebuggerStatement, code is 400', async () => {
-        const data: CreateIssueRequest = {
+        const data: CreateIssueRequestData = {
             title: getRandomString(10),
-            repo: INVALIDREPO,
-            owner: OWNER
         }
 
         const issueAPIProvider: IssueAPIProvider = new IssueAPIProvider({

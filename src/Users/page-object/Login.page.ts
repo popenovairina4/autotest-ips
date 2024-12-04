@@ -1,9 +1,11 @@
 import { ChainablePromiseElement } from 'webdriverio'
 import { PageObject } from '../../common/page-object/PageObject'
 import { UserModel } from '../model/user.model'
+import { Reporter } from '../../common/reporter/Reporter'
 
 class LoginPage extends PageObject {
     public async setLogin(login: string): Promise<void> {
+        Reporter.addStep('Wait for input login')
         await this.getLoginField().waitForDisplayed({
             timeoutMsg: 'Login input was not displayed',
         })
@@ -27,12 +29,15 @@ class LoginPage extends PageObject {
     private getLoginForm(): ChainablePromiseElement {
         return this.browser.$('//*[@id="login"]')
     }
+
     private getLoginField() {
         return this.browser.$('//*[@id="login_field"]')
     }
+
     private getPasswordField() {
         return this.browser.$('//*[@id="password"]')
     }
+
     private getSubmitButton() {
         return this.browser.$('//*[@type="submit"]')
     }
@@ -45,5 +50,5 @@ class LoginPage extends PageObject {
 }
 
 export {
-    LoginPage
+    LoginPage,
 }
