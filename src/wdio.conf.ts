@@ -43,7 +43,7 @@ export const config: WebdriverIO.Config = {
         result: { error?: unknown, duration: unknown, passed: unknown },
     ) {
         if (result.error) {
-            // await browser.takeScreenshot()
+            await browser.takeScreenshot()
         }
     },
 }
